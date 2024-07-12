@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function Navbar({ setProducts, productsPerPage, page, sort, products }) {
+function Navbar({ setProducts, productsPerPage, page, sort }) {
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("");
   
@@ -31,9 +31,9 @@ function Navbar({ setProducts, productsPerPage, page, sort, products }) {
 
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+    <nav className="navbar navbar-expand-lg navbar-light bg-dark">
       <div className="container-fluid">
-        <a className="navbar-brand" href="#">Navbar</a>
+        <a className="navbar-brand" href="#">ProductsApp</a>
         <button
           className="navbar-toggler"
           type="button"
