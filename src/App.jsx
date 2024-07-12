@@ -1,36 +1,40 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useEffect, useState } from "react";
+import reactLogo from "./assets/react.svg";
+import viteLogo from "/vite.svg";
+import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    const getData = async () => {
+      await fetch("https://dummyjson.com/products?limit=10&skip=10")
+        .then((response) => response.json())
+        .then((data) => setProducts(data.products));
+    };
+    getData();
+  }, []);
 
   return (
     <>
-      <div>
-        <h1>HELLO WORLD</h1>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <div className="container">
+        {products.map((product, id) => (
+          <div className="card" style={{ width: "18rem" }} key={id}>
+            <img src={product.images} className="card-img-top" />
+            <div className="card-body">
+              <h5 className="card-title">{product.title}</h5>
+              <p className="card-text">Rs {product.price}</p>
+
+              <a href="#" className="btn btn-primary">
+                Add to Cart
+              </a>
+            </div>
+          </div>
+        ))}
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
+//
