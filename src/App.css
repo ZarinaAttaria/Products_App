@@ -13,7 +13,14 @@
   overflow: hidden;
  
 }
-
+.pagination_button{
+  background-color: black !important;
+  color: white !important;
+}
+.dropdown_Btn{
+  background-color: rgb(61, 58, 58) !important;
+  color: white !important;
+}
 .navbar{
   width: 1220px;
 }
@@ -61,7 +68,42 @@
 .sort-buttons {
   margin: 10px;
 }
+.sort-btn{
+  margin: 5px;
+  width: 180px;
+  height: 40px;
+  background-color: rgb(24, 170, 180);
 
+}
+.filter_Dropdown{
+margin: 10px;
+}
+
+.dropdown-menu{
+  background-color: black;
+  color: white;
+}
+.dropdown-item{
+
+  color: white;
+}
+.search_Btn{
+background-color: darkgreen !important;
+color: white;
+}
+.search_Btn:hover{
+  background-color: rgb(183, 179, 179) !important;
+color: black;
+}
+.HomeLink:hover{
+  background-color: #6688ab;
+
+  
+}
+.navbar-brand:hover{
+  background-color: #6688ab;
+
+}
 .pagination {
   margin: 20px 0;
 }
@@ -84,4 +126,53 @@
 .pagination span {
   margin: 0 10px;
   font-size: 18px;
+}
+
+
+
+.sortContainer {
+  margin:10px;
+  
+}
+
+.sort-toggle-btn {
+  margin-bottom: 10px;
+}
+
+.sort-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.sort-btn {
+  margin: 5px;
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.card {
+  margin: 10px;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.pagination_button {
+  padding: 5px 10px;
+}
+
+.dropdown {
+  margin: 0 10px;
 }

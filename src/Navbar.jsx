@@ -1,15 +1,12 @@
 import React, { useState } from 'react';
 
-function Navbar({ setProducts, productsPerPage, page, sort }) {
+function Navbar({ setProducts, productsPerPage, page, sort , handleSearch, handleCategoryFilter}) {
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("");
   
-
-  const searchProduct = async () => {
-    await fetch(`https://dummyjson.com/products/search?q=${query}&limit=${productsPerPage}&skip=${(page - 1) * productsPerPage}`)
-      .then((response) => response.json())
-      .then((data) => setProducts(data.products));
-  };
+const searchProduct=async()=>{
+  handleSearch(query)
+}
 
   const handleChange = (e) => {
     setQuery(e.target.value);
@@ -20,12 +17,8 @@ function Navbar({ setProducts, productsPerPage, page, sort }) {
     searchProduct();
   };
 
-  const handleCategoryFilter = async (category) => {
-    const skip = (page - 1) * productsPerPage;
-    const sortType = sort ? `&sortBy=${sort}&order=asc` : "";
-    await fetch(`https://dummyjson.com/products/category/${category}?limit=${productsPerPage}&skip=${skip}${sortType}`)
-      .then((response) => response.json())
-      .then((data) => setProducts(data.products));
+  const CategoryFilter = async (category) => {
+    handleCategoryFilter(category);
     setCategory(category);
   };
 
@@ -48,18 +41,18 @@ function Navbar({ setProducts, productsPerPage, page, sort }) {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
-              <a className="nav-link active" aria-current="page" href="/">Home</a>
+              <a className="nav-link active HomeLink" aria-current="page" href="/">Home</a>
             </li>
           </ul>
           <div className="dropdown">
-            <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+            <button className="btn btn-secondary dropdown-toggle filter_Dropdown" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
               Filter By Category
             </button>
             <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-              <li><a className="dropdown-item" onClick={() => handleCategoryFilter("beauty")} href="#">Beauty</a></li>
-              <li><a className="dropdown-item" onClick={() => handleCategoryFilter("fragrances")} href="#">Fragrances</a></li>
-              <li><a className="dropdown-item" onClick={() => handleCategoryFilter("furniture")} href="#">Furniture</a></li>
-              <li><a className="dropdown-item" onClick={() => handleCategoryFilter("groceries")} href="#">Groceries</a></li>
+              <li><a className="dropdown-item" onClick={() => CategoryFilter("beauty")} href="#">Beauty</a></li>
+              <li><a className="dropdown-item" onClick={() => CategoryFilter("fragrances")} href="#">Fragrances</a></li>
+              <li><a className="dropdown-item" onClick={() => CategoryFilter("furniture")} href="#">Furniture</a></li>
+              <li><a className="dropdown-item" onClick={() => CategoryFilter("groceries")} href="#">Groceries</a></li>
             </ul>
           </div>
           
@@ -72,7 +65,7 @@ function Navbar({ setProducts, productsPerPage, page, sort }) {
               placeholder="Search"
               aria-label="Search"
             />
-            <button className="btn btn-outline-success" type="submit">Search</button>
+            <button className="btn btn-outline-success search_Btn" type="submit">Search</button>
           </form>
         </div>
       </div>

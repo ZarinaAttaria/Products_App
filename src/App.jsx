@@ -8,24 +8,78 @@ function App() {
   const [products, setProducts] = useState([]);
   const [page, setPage] = useState(1);
   const [sort, setSort] = useState("");
-  const productsPerPage = 10;
+  const [sortOrder, setSortOrder]=useState("");
+  const [productsPerPage, setProductsPerPage] = useState(5);
+const [isSearch,setIsSearch]=useState(false);
+const [totalProducts, setTotalProducts]=useState(0);
+const [searchQuery, setSearchQuery]=useState("");
+const [filtercategory, setFilterCategory]=useState("");
+const [showSortingButtons, setShowSortingSortingButtons]=useState(false);
 
-  const getData = async (page, sort) => {
+const first = (page - 1) * productsPerPage + 1;
+const last = Math.min(page * productsPerPage, totalProducts);
+
+const [isCategoryFilter,setIsCategoryFilter]=useState(false);
+
+  const getData = async (page, sort,sortOrder) => {
     const skip = (page - 1) * productsPerPage;
-    const sortType = sort ? `&sortBy=${sort}&order=asc` : "";
+    const sortType = sort ? `&sortBy=${sort}&order=${sortOrder}` : "";
+   
+
     await fetch(
       `https://dummyjson.com/products?limit=${productsPerPage}&skip=${skip}${sortType}`
     )
       .then((response) => response.json())
-      .then((data) => setProducts(data.products));
+      .then((data) => {
+        setProducts(data.products);
+        setTotalProducts(data.total);
+   
+      });
   };
 
-  useEffect(() => {
-    getData(page, sort);
-  }, [page, sort]);
+  
+  const searchProduct = async (query) => {
+    const sortType = sort ? `&sortBy=${sort}&order=${sortOrder}` : "";
+    await fetch(`https://dummyjson.com/products/search?q=${query}&limit=${productsPerPage}&skip=${(page - 1) * productsPerPage}${sortType}`)
+      .then((response) => response.json())
+      .then((data) => {
+        setProducts(data.products);
+        setTotalProducts(data.total);
+    
+      });
+  };
 
-  const handleSort = (value) => {
+  const categoryFilter = async (category) => {
+    const skip = (page - 1) * productsPerPage;
+    const sortType = sort ? `&sortBy=${sort}&order=${sortOrder}` : "";
+    await fetch(`https://dummyjson.com/products/category/${category}?limit=${productsPerPage}&skip=${skip}${sortType}`)
+      .then((response) => response.json())
+      .then((data) => {
+        setProducts(data.products);
+        setTotalProducts(data.total);
+    
+      });
+    
+  };
+  useEffect(() => {
+    if(isSearch){
+      searchProduct(searchQuery);
+    }
+    else if(isCategoryFilter)
+    {
+      categoryFilter(filtercategory)
+    }
+    else{
+      getData(page, sort,sortOrder);
+
+    }
+    
+  }, [page, sort,sortOrder, productsPerPage, isSearch,isCategoryFilter]);
+
+  const handleSort = (value,order) => {
+    
     setSort(value);
+    setSortOrder(order);
   };
 
   const handleNext = () => {
@@ -36,6 +90,29 @@ function App() {
     setPage((prevPage) => Math.max(prevPage - 1, 1));
   };
 
+  const handleProductsPerPage=async(products_per_page)=>{
+
+   {page*productsPerPage>=totalProducts?"": setProductsPerPage(products_per_page)}
+   setPage(1);
+  }
+
+  const handleCategoryFilter=(category)=>{
+    setIsCategoryFilter(true);
+    categoryFilter(category);
+    setFilterCategory(category);
+  setPage(1);
+
+  }
+const handleSearch=(query)=>{
+  setIsSearch(true)
+  searchProduct(query);
+  setSearchQuery(query);
+  setPage(1);
+}
+
+const toggleSortingButtons=()=>{
+  setShowSortingSortingButtons((prevShowSortingButton)=>!prevShowSortingButton);
+}
   return (
     <>
       <Navbar
@@ -43,15 +120,36 @@ function App() {
         productsPerPage={productsPerPage}
         page={page}
         sort={sort}
-      />
+        handleSearch={handleSearch}
+        handleCategoryFilter={handleCategoryFilter}
+       
+           />
+
+           <div className="sortContainer">
+<button className="btn btn-primary sort-toggle-btn" onClick={toggleSortingButtons}>
+Sort
+</button>
+{showSortingButtons &&(
+
       <div className="sort-buttons">
-        <button className="btn btn-primary" onClick={() => handleSort("price")}>
-          Sort by Price
+      
+        <button className="btn btn-primary sort-btn" onClick={() => handleSort("price","asc")}>
+           Price(Low to High)
         </button>
-        <button className="btn btn-primary" onClick={() => handleSort("title")}>
-          Sort by Title
+        <button className="btn btn-primary sort-btn" onClick={() => handleSort("price","desc")}>
+          Price(High to Low)
+        </button>
+        <button className="btn btn-primary sort-btn" onClick={() => handleSort("title","asc")}>
+          Alphabetically(A-Z)
+        </button>
+        <button className="btn btn-primary sort-btn" onClick={() => handleSort("title","desc")}>
+          Alphabetically(Z-A)
         </button>
       </div>
+)}
+
+      </div>
+
       <div className="container">
         {products.map((product, id) => (
           <div className="card" style={{ width: "18rem" }} key={id}>
@@ -72,13 +170,27 @@ function App() {
         ))}
       </div>
       <div className="pagination">
-        <button onClick={handlePrevious} disabled={page === 1} className="btn">
+      <div className="dropdown">
+            <button className="btn btn-secondary dropdown-toggle dropdown_Btn" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+              Products Per Page
+            </button>
+            <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              <li><a className="dropdown-item" onClick={() => handleProductsPerPage(5)} href="#">5</a></li>
+              <li><a className="dropdown-item" onClick={() => handleProductsPerPage(10)} href="#">10</a></li>
+              <li><a className="dropdown-item" onClick={() => handleProductsPerPage(15)} href="#">15</a></li>
+              <li><a className="dropdown-item" onClick={() => handleProductsPerPage(20)} href="#">20</a></li>
+            </ul>
+          </div>
+        <button onClick={handlePrevious} disabled={page === 1} className="pagination_button ">
           Previous
         </button>
         <span>Page {page}</span>
-        <button onClick={handleNext} className="btn">
+        <span>{first }-{ last }products showing</span>
+
+        <button onClick={handleNext} disabled={productsPerPage*page>=totalProducts} className="pagination_button">
           Next
         </button>
+     {productsPerPage*page>=totalProducts?<span>No more products to show </span>: ""}
       </div>
     </>
   );
