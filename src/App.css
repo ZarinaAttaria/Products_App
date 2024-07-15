@@ -127,8 +127,13 @@ color: black;
   margin: 0 10px;
   font-size: 18px;
 }
-
-
+.product_Btns{
+  margin: 5px;
+  background-color: #007bff;
+}
+.productPrice{
+  color:green;
+}
 
 .sortContainer {
   margin:10px;

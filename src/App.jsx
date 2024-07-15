@@ -15,7 +15,7 @@ const [totalProducts, setTotalProducts]=useState(0);
 const [searchQuery, setSearchQuery]=useState("");
 const [filtercategory, setFilterCategory]=useState("");
 const [showSortingButtons, setShowSortingSortingButtons]=useState(false);
-
+const [selectedProduct, setSelectedProduct]=useState(null)
 const first = (page - 1) * productsPerPage + 1;
 const last = Math.min(page * productsPerPage, totalProducts);
 
@@ -113,6 +113,10 @@ const handleSearch=(query)=>{
 const toggleSortingButtons=()=>{
   setShowSortingSortingButtons((prevShowSortingButton)=>!prevShowSortingButton);
 }
+
+const handleMoreDetails=(product)=>{
+  setSelectedProduct(product)
+}
   return (
     <>
       <Navbar
@@ -162,8 +166,15 @@ Sort
             <div className="card-body">
               <h5 className="card-title">{product.title}</h5>
               <p className="card-text">Rs {product.price}</p>
-              <a href="#" className="btn btn-primary">
+       
+             
+
+              <a href="#" className="btn btn-primary ">
                 Add to Cart
+              </a>
+
+              <a class="btn btn-primary product_Btns" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample" onClick={()=>handleMoreDetails(product)}>
+            More Details
               </a>
             </div>
           </div>
@@ -192,6 +203,28 @@ Sort
         </button>
      {productsPerPage*page>=totalProducts?<span>No more products to show </span>: ""}
       </div>
+
+      <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasExampleLabel">Product Details</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+  {selectedProduct && (
+
+    <>
+       <img src={selectedProduct.images[0]} alt={selectedProduct.title} style={{ width: "100%", objectFit: "cover" }} />
+              <p>{selectedProduct.description}</p>
+              <h6 className="productPrice">Price: Rs {selectedProduct.price}</h6>
+              <p>Rating: {selectedProduct.rating}</p>
+              <a href="#" className="btn btn-primary ">
+                Add to Cart
+              </a>
+    </>
+  )}
+    
+  </div>
+</div>
     </>
   );
 }
