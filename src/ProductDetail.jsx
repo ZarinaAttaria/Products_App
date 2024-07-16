@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css";
 
-function MoreDetails({ selectedProduct  }) {
+function ProductDetail({ selectedProduct  }) {
   
 
   return (
@@ -47,4 +47,4 @@ function MoreDetails({ selectedProduct  }) {
   );
 }
 
-export default MoreDetails;
+export default ProductDetail;

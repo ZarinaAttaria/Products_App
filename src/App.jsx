@@ -5,7 +5,8 @@ import "./App.css";
 import Navbar from "./Navbar.jsx";
 import Dropdown from "./Dropdown.jsx";
 import ProductCard from "./ProductCard.jsx";
-import MoreDetails from "./MoreDetails.jsx";
+
+import ProductDetail from "./ProductDetail.jsx";
 
 function App() {
   const [products, setProducts] = useState([]);
@@ -194,7 +195,7 @@ function App() {
           ""
         )}
       </div>
-<MoreDetails selectedProduct={selectedProduct}/>
+<ProductDetail selectedProduct={selectedProduct}/>
      
     </>
   );
