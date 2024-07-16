@@ -7,21 +7,21 @@ import Dropdown from "./Dropdown.jsx";
 import ProductCard from "./ProductCard.jsx";
 
 import ProductDetail from "./ProductDetail.jsx";
+import Pagination from "./Pagination.jsx";
 
 function App() {
   const [products, setProducts] = useState([]);
   const [page, setPage] = useState(1);
   const [sort, setSort] = useState("");
   const [sortOrder, setSortOrder] = useState("");
-  const [productsPerPage, setProductsPerPage] = useState(5);
   const [isSearch, setIsSearch] = useState(false);
   const [totalProducts, setTotalProducts] = useState(0);
   const [searchQuery, setSearchQuery] = useState("");
   const [filtercategory, setFilterCategory] = useState("");
   const [showSortingButtons, setShowSortingSortingButtons] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
-  const first = (page - 1) * productsPerPage + 1;
-  const last = Math.min(page * productsPerPage, totalProducts);
+  const [productsPerPage, setProductsPerPage] = useState(5);
+ 
   const [isCategoryFilter, setIsCategoryFilter] = useState(false);
 
   const getData = async (page, sort, sortOrder) => {
@@ -79,22 +79,7 @@ function App() {
     setSortOrder(order);
   };
 
-  const handleNext = () => {
-    setPage((prevPage) => prevPage + 1);
-  };
 
-  const handlePrevious = () => {
-    setPage((prevPage) => Math.max(prevPage - 1, 1));
-  };
-
-  const handleProductsPerPage = async (products_per_page) => {
-    {
-      page * productsPerPage >= totalProducts
-        ? ""
-        : setProductsPerPage(products_per_page);
-    }
-    setPage(1);
-  };
 
   const handleCategoryFilter = (category) => {
     setIsCategoryFilter(true);
@@ -168,33 +153,8 @@ function App() {
 
      <ProductCard products={products} handleMoreDetails={handleMoreDetails} />
      
-      <div className="pagination">
-        <Dropdown type="productsPerPage" handleAction={handleProductsPerPage}/>
-        <button
-          onClick={handlePrevious}
-          disabled={page === 1}
-          className="pagination_button "
-        >
-          Previous
-        </button>
-        <span>Page {page}</span>
-        <span>
-          {first}-{last}products showing
-        </span>
+     <Pagination totalProducts={totalProducts} productsPerPage={productsPerPage} setProductsPerPage={setProductsPerPage} page={page} setPage={setPage}/>
 
-        <button
-          onClick={handleNext}
-          disabled={productsPerPage * page >= totalProducts}
-          className="pagination_button"
-        >
-          Next
-        </button>
-        {productsPerPage * page >= totalProducts ? (
-          <span>No more products to show </span>
-        ) : (
-          ""
-        )}
-      </div>
 <ProductDetail selectedProduct={selectedProduct}/>
      
     </>
