@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
+import Dropdown from './Dropdown';
 
 function Navbar({ setProducts, productsPerPage, page, sort , handleSearch, handleCategoryFilter}) {
   const [query, setQuery] = useState("");
-  const [category, setCategory] = useState("");
+ 
   
 const searchProduct=async()=>{
   handleSearch(query)
@@ -17,10 +18,7 @@ const searchProduct=async()=>{
     searchProduct();
   };
 
-  const CategoryFilter = async (category) => {
-    handleCategoryFilter(category);
-    setCategory(category);
-  };
+ 
 
 
   return (
@@ -44,17 +42,7 @@ const searchProduct=async()=>{
               <a className="nav-link active HomeLink" aria-current="page" href="/">Home</a>
             </li>
           </ul>
-          <div className="dropdown">
-            <button className="btn btn-secondary dropdown-toggle filter_Dropdown" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-              Filter By Category
-            </button>
-            <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-              <li><a className="dropdown-item" onClick={() => CategoryFilter("beauty")} href="#">Beauty</a></li>
-              <li><a className="dropdown-item" onClick={() => CategoryFilter("fragrances")} href="#">Fragrances</a></li>
-              <li><a className="dropdown-item" onClick={() => CategoryFilter("furniture")} href="#">Furniture</a></li>
-              <li><a className="dropdown-item" onClick={() => CategoryFilter("groceries")} href="#">Groceries</a></li>
-            </ul>
-          </div>
+         <Dropdown type="category" handleAction={handleCategoryFilter}/>
           
           <form className="d-flex" onSubmit={handleSubmit}>
             <input
