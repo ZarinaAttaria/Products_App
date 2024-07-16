@@ -1,9 +1,16 @@
 import React from "react";
 
 
-function Cart({ cart }) {
+function Cart({ cart ,setCart}) {
   
-
+    const handleRemoveCartItem=(pid)=>{
+        let myCart = [...cart];
+        let index = myCart.findIndex((item) => item._id === pid);
+        myCart.splice(index, 1);
+        setCart(myCart);
+        localStorage.setItem("cart", JSON.stringify(myCart));
+       }
+       
   return (
     <div
       className="offcanvas offcanvas-end"
@@ -36,7 +43,7 @@ function Cart({ cart }) {
                 <p>{item.description}</p>
                 <h6 className="productPrice">Price: Rs {item.price}</h6>
                 <p>Rating: {item.rating}</p>
-                <button className="btn btn-primary">Remove from Cart</button>
+                <button className="btn btn-primary" onClick={()=>handleRemoveCartItem(item.id)}>Remove from Cart</button>
               </div>
             ))}
       </div>

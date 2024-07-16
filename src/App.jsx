@@ -109,7 +109,7 @@ function App() {
   const handleCart = () => {
     setIsCartIcon(true);
   };
-
+ 
   return (
     <>
       <Navbar
@@ -141,7 +141,7 @@ function App() {
       />
 
       <ProductDetail selectedProduct={selectedProduct} />
-      <Cart cart={cart} isCartIcon={isCartIcon} />
+      <Cart cart={cart} isCartIcon={isCartIcon} setCart={setCart} />
 
       <Footer />
     </>
