@@ -144,7 +144,10 @@ color: black;
   margin:10px;
   
 }
-
+.dropdowns{
+  display: flex;
+flex-direction: row;
+}
 .sort-toggle-btn {
   margin-bottom: 10px;
 }
@@ -185,4 +188,9 @@ color: black;
 
 .dropdown {
   margin: 0 10px;
+}
+.cartIcon{
+  height: 30px;
+  width: 30px;
+  margin: 10px;
 }

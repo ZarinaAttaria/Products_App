@@ -1,13 +1,13 @@
-// App.jsx
-
 import React, { useEffect, useState } from "react";
 import "./App.css";
 import Navbar from "./Navbar.jsx";
 import Dropdown from "./Dropdown.jsx";
 import ProductCard from "./ProductCard.jsx";
-
 import ProductDetail from "./ProductDetail.jsx";
 import Pagination from "./Pagination.jsx";
+import Footer from "./Footer.jsx";
+import Cart from "./Cart.jsx";
+import { useCart } from "./cartContext.jsx";
 
 function App() {
   const [products, setProducts] = useState([]);
@@ -18,11 +18,17 @@ function App() {
   const [totalProducts, setTotalProducts] = useState(0);
   const [searchQuery, setSearchQuery] = useState("");
   const [filtercategory, setFilterCategory] = useState("");
-  const [showSortingButtons, setShowSortingSortingButtons] = useState(false);
+
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [productsPerPage, setProductsPerPage] = useState(5);
- 
+
   const [isCategoryFilter, setIsCategoryFilter] = useState(false);
+  const [cart, setCart] = useCart([]);
+  const [isCartIcon, setIsCartIcon] = useState(false);
+
+
+    
+  
 
   const getData = async (page, sort, sortOrder) => {
     const skip = (page - 1) * productsPerPage;
@@ -64,6 +70,7 @@ function App() {
         setTotalProducts(data.total);
       });
   };
+
   useEffect(() => {
     if (isSearch) {
       searchProduct(searchQuery);
@@ -74,19 +81,13 @@ function App() {
     }
   }, [page, sort, sortOrder, productsPerPage, isSearch, isCategoryFilter]);
 
-  const handleSort = (value, order) => {
-    setSort(value);
-    setSortOrder(order);
-  };
-
-
-
   const handleCategoryFilter = (category) => {
     setIsCategoryFilter(true);
     categoryFilter(category);
     setFilterCategory(category);
     setPage(1);
   };
+
   const handleSearch = (query) => {
     setIsSearch(true);
     searchProduct(query);
@@ -94,15 +95,21 @@ function App() {
     setPage(1);
   };
 
-  const toggleSortingButtons = () => {
-    setShowSortingSortingButtons(
-      (prevShowSortingButton) => !prevShowSortingButton
-    );
-  };
-
   const handleMoreDetails = (product) => {
     setSelectedProduct(product);
   };
+
+  const handleAddToCart = (product) => {
+    setCart([...cart, product]);
+    localStorage.setItem('cart', JSON.stringify([...cart, product]));
+
+  };
+  
+  
+  const handleCart = () => {
+    setIsCartIcon(true);
+  };
+
   return (
     <>
       <Navbar
@@ -112,51 +119,31 @@ function App() {
         sort={sort}
         handleSearch={handleSearch}
         handleCategoryFilter={handleCategoryFilter}
+        handleCart={handleCart}
       />
-
-      <div className="sortContainer">
-        <button
-          className="btn btn-primary sort-toggle-btn"
-          onClick={toggleSortingButtons}
-        >
-          Sort
-        </button>
-        {showSortingButtons && (
-          <div className="sort-buttons">
-            <button
-              className="btn btn-primary sort-btn"
-              onClick={() => handleSort("price", "asc")}
-            >
-              Price(Low to High)
-            </button>
-            <button
-              className="btn btn-primary sort-btn"
-              onClick={() => handleSort("price", "desc")}
-            >
-              Price(High to Low)
-            </button>
-            <button
-              className="btn btn-primary sort-btn"
-              onClick={() => handleSort("title", "asc")}
-            >
-              Alphabetically(A-Z)
-            </button>
-            <button
-              className="btn btn-primary sort-btn"
-              onClick={() => handleSort("title", "desc")}
-            >
-              Alphabetically(Z-A)
-            </button>
-          </div>
-        )}
+      <div className="dropdowns">
+        <Dropdown type="sort" setSort={setSort} setSortOrder={setSortOrder} />
+        <Dropdown type="category" handleAction={handleCategoryFilter} />
       </div>
 
-     <ProductCard products={products} handleMoreDetails={handleMoreDetails} />
-     
-     <Pagination totalProducts={totalProducts} productsPerPage={productsPerPage} setProductsPerPage={setProductsPerPage} page={page} setPage={setPage}/>
+      <ProductCard
+        products={products}
+        handleMoreDetails={handleMoreDetails}
+        handleAddToCart={handleAddToCart}
+      />
 
-<ProductDetail selectedProduct={selectedProduct}/>
-     
+      <Pagination
+        totalProducts={totalProducts}
+        productsPerPage={productsPerPage}
+        setProductsPerPage={setProductsPerPage}
+        page={page}
+        setPage={setPage}
+      />
+
+      <ProductDetail selectedProduct={selectedProduct} />
+      <Cart cart={cart} isCartIcon={isCartIcon} />
+
+      <Footer />
     </>
   );
 }

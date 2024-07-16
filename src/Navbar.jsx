@@ -1,17 +1,13 @@
-import React, { useState } from 'react';
-import Dropdown from './Dropdown';
-import SearchInput from './SearchInput';
+import React from "react";
+import SearchInput from "./SearchInput";
 
-function Navbar({  handleSearch, handleCategoryFilter}) {
- 
-  
-
-
-  
+function Navbar({ handleSearch, handleCart }) {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-dark">
       <div className="container-fluid">
-        <a className="navbar-brand" href="#">ProductsApp</a>
+        <a className="navbar-brand" href="#">
+          ProductsApp
+        </a>
         <button
           className="navbar-toggler"
           type="button"
@@ -26,12 +22,25 @@ function Navbar({  handleSearch, handleCategoryFilter}) {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
-              <a className="nav-link active HomeLink" aria-current="page" href="/">Home</a>
+              <a
+                className="nav-link active HomeLink"
+                aria-current="page"
+                href="/"
+              >
+                Home
+              </a>
             </li>
           </ul>
-         <Dropdown type="category" handleAction={handleCategoryFilter}/>
-          
-         <SearchInput handleSearch={handleSearch}/>
+          <SearchInput handleSearch={handleSearch} />
+          <img
+            src="shopping-cart.png"
+            className="cartIcon"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasRight" // Updated to match the new offcanvas ID
+            aria-controls="offcanvasRight" // Updated to match the new offcanvas ID
+            onClick={handleCart}
+            alt="cart"
+          />
         </div>
       </div>
     </nav>
