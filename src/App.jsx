@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import "./App.css";
 import Navbar from "./Navbar.jsx";
 import Dropdown from "./Dropdown.jsx";
+import ProductCard from "./ProductCard.jsx";
 
 function App() {
   const [products, setProducts] = useState([]);
@@ -19,7 +20,6 @@ function App() {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const first = (page - 1) * productsPerPage + 1;
   const last = Math.min(page * productsPerPage, totalProducts);
-
   const [isCategoryFilter, setIsCategoryFilter] = useState(false);
 
   const getData = async (page, sort, sortOrder) => {
@@ -164,38 +164,7 @@ function App() {
         )}
       </div>
 
-      <div className="container">
-        {products.map((product, id) => (
-          <div className="card" style={{ width: "18rem" }} key={product.id}>
-            <img
-              src={product.images[0]}
-              alt={product.title}
-              style={{ height: "200px", objectFit: "cover" }}
-              className="card-img-top"
-           
-            />
-            <div className="card-body">
-              <h5 className="card-title">{product.title}</h5>
-              <p className="card-text">Rs {product.price}</p>
-
-              <a href="#" className="btn btn-primary ">
-                Add to Cart
-              </a>
-
-              <a
-                class="btn btn-primary product_Btns"
-                data-bs-toggle="offcanvas"
-                href="#offcanvasExample"
-                role="button"
-                aria-controls="offcanvasExample"
-                onClick={() => handleMoreDetails(product)}
-              >
-                More Details
-              </a>
-            </div>
-          </div>
-        ))}
-      </div>
+     <ProductCard products={products} handleMoreDetails={handleMoreDetails} />
       <div className="pagination">
         <Dropdown type="productsPerPage" handleAction={handleProductsPerPage}/>
         <button
