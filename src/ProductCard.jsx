@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "./App.css";
 
 function ProductCard({ products, handleMoreDetails }) {
@@ -38,6 +38,8 @@ function ProductCard({ products, handleMoreDetails }) {
           </div>
         ))}
       </div>
+
+
     </>
   );
 }
