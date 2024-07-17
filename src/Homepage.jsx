@@ -115,21 +115,36 @@ function HomePage() {
       />
 
       <div className="sortContainer">
-        <button className="btn btn-primary sort-toggle-btn" onClick={toggleSortingButtons}>
+        <button
+          className="btn btn-primary sort-toggle-btn"
+          onClick={toggleSortingButtons}
+        >
           Sort
         </button>
         {showSortingButtons && (
           <div className="sort-buttons">
-            <button className="btn btn-primary sort-btn" onClick={() => handleSort("price", "asc")}>
+            <button
+              className="btn btn-primary sort-btn"
+              onClick={() => handleSort("price", "asc")}
+            >
               Price (Low to High)
             </button>
-            <button className="btn btn-primary sort-btn" onClick={() => handleSort("price", "desc")}>
+            <button
+              className="btn btn-primary sort-btn"
+              onClick={() => handleSort("price", "desc")}
+            >
               Price (High to Low)
             </button>
-            <button className="btn btn-primary sort-btn" onClick={() => handleSort("title", "asc")}>
+            <button
+              className="btn btn-primary sort-btn"
+              onClick={() => handleSort("title", "asc")}
+            >
               Alphabetically (A-Z)
             </button>
-            <button className="btn btn-primary sort-btn" onClick={() => handleSort("title", "desc")}>
+            <button
+              className="btn btn-primary sort-btn"
+              onClick={() => handleSort("title", "desc")}
+            >
               Alphabetically (Z-A)
             </button>
           </div>
@@ -173,36 +188,66 @@ function HomePage() {
           </button>
           <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
             <li>
-              <a className="dropdown-item" onClick={() => handleProductsPerPage(5)} href="#">
+              <a
+                className="dropdown-item"
+                onClick={() => handleProductsPerPage(5)}
+                href="#"
+              >
                 5
               </a>
             </li>
             <li>
-              <a className="dropdown-item" onClick={() => handleProductsPerPage(10)} href="#">
+              <a
+                className="dropdown-item"
+                onClick={() => handleProductsPerPage(10)}
+                href="#"
+              >
                 10
               </a>
             </li>
             <li>
-              <a className="dropdown-item" onClick={() => handleProductsPerPage(15)} href="#">
+              <a
+                className="dropdown-item"
+                onClick={() => handleProductsPerPage(15)}
+                href="#"
+              >
                 15
               </a>
             </li>
             <li>
-              <a className="dropdown-item" onClick={() => handleProductsPerPage(20)} href="#">
+              <a
+                className="dropdown-item"
+                onClick={() => handleProductsPerPage(20)}
+                href="#"
+              >
                 20
               </a>
             </li>
           </ul>
         </div>
-        <button onClick={handlePrevious} disabled={page === 1} className="pagination_button">
+        <button
+          onClick={handlePrevious}
+          disabled={page === 1}
+          className="pagination_button"
+        >
           Previous
         </button>
         <span>Page {page}</span>
-        <span>{first}-{last} products showing</span>
-        <button onClick={handleNext} disabled={productsPerPage * page >= totalProducts} className="pagination_button">
+        <span>
+          {first}-{last} products showing
+        </span>
+        <button
+          onClick={handleNext}
+          disabled={productsPerPage * page >= totalProducts}
+          className="pagination_button"
+        >
           Next
         </button>
-        {productsPerPage * page >= totalProducts ? <span>No more products to show</span> : ""}
+        {productsPerPage * page >= totalProducts ? (
+          <span>No more products to show</span>
+        ) : (
+          ""
+        )}
       </div>
     </>
   );

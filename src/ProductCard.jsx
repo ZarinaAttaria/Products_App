@@ -1,12 +1,10 @@
 import React from "react";
 import "./App.css";
 
-function ProductCard({ products, handleMoreDetails,handleAddToCart }) {
-  
-
+function ProductCard({ products, handleMoreDetails, handleAddToCart }) {
   return (
     <>
-       <div className="container">
+      <div className="container">
         {products.map((product, id) => (
           <div className="card" style={{ width: "18rem" }} key={product.id}>
             <img
@@ -14,13 +12,16 @@ function ProductCard({ products, handleMoreDetails,handleAddToCart }) {
               alt={product.title}
               style={{ height: "200px", objectFit: "cover" }}
               className="card-img-top"
-           
             />
             <div className="card-body">
               <h5 className="card-title">{product.title}</h5>
               <p className="card-text">Rs {product.price}</p>
 
-              <a href="#" className="btn btn-primary " onClick={()=>handleAddToCart(product)}>
+              <a
+                href="#"
+                className="btn btn-primary "
+                onClick={() => handleAddToCart(product)}
+              >
                 Add to Cart
               </a>
 
@@ -38,8 +39,6 @@ function ProductCard({ products, handleMoreDetails,handleAddToCart }) {
           </div>
         ))}
       </div>
-
-
     </>
   );
 }

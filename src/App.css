@@ -1,4 +1,4 @@
-body{
+body {
   width: 100%;
   height: auto;
 }
@@ -15,28 +15,23 @@ body{
   border: none;
   border-radius: 0.5rem;
   overflow: hidden;
- 
 }
-.pagination_button{
+.pagination_button {
   background-color: black !important;
   color: white !important;
 }
-.dropdown_Btn{
+.dropdown_Btn {
   background-color: rgb(61, 58, 58) !important;
   color: white !important;
 }
-.navbar{
+.navbar {
   width: 1220px;
-  
 }
-.navbar-brand{
+.navbar-brand {
   color: white !important;
-
-
 }
-.nav-link{
+.nav-link {
   color: white !important;
-
 }
 .card-img-top {
   border-top-left-radius: 0.5rem;
@@ -73,41 +68,36 @@ body{
 .sort-buttons {
   margin: 10px;
 }
-.sort-btn{
+.sort-btn {
   margin: 5px;
   width: 180px;
   height: 40px;
   background-color: rgb(24, 170, 180);
-
 }
-.filter_Dropdown{
-margin: 10px;
+.filter_Dropdown {
+  margin: 10px;
 }
 
-.dropdown-menu{
+.dropdown-menu {
   background-color: black;
   color: white;
 }
-.dropdown-item{
-
+.dropdown-item {
   color: white;
 }
-.search_Btn{
-background-color: darkgreen !important;
-color: white;
+.search_Btn {
+  background-color: darkgreen !important;
+  color: white;
 }
-.search_Btn:hover{
+.search_Btn:hover {
   background-color: rgb(183, 179, 179) !important;
-color: black;
+  color: black;
 }
-.HomeLink:hover{
+.HomeLink:hover {
   background-color: #6688ab;
-
-  
 }
-.navbar-brand:hover{
+.navbar-brand:hover {
   background-color: #6688ab;
-
 }
 .pagination {
   margin: 20px 0;
@@ -132,21 +122,20 @@ color: black;
   margin: 0 10px;
   font-size: 18px;
 }
-.product_Btns{
+.product_Btns {
   margin: 5px;
   background-color: #007bff;
 }
-.productPrice{
-  color:green;
+.productPrice {
+  color: green;
 }
 
 .sortContainer {
-  margin:10px;
-  
+  margin: 10px;
 }
-.dropdowns{
+.dropdowns {
   display: flex;
-flex-direction: row;
+  flex-direction: row;
 }
 .sort-toggle-btn {
   margin-bottom: 10px;
@@ -189,8 +178,14 @@ flex-direction: row;
 .dropdown {
   margin: 0 10px;
 }
-.cartIcon{
+.cartIcon {
   height: 30px;
   width: 30px;
   margin: 10px;
+}
+.totalPrice {
+  color: green;
+}
+.cartSummary {
+  margin-top: 20px;
 }

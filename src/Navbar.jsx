@@ -36,8 +36,8 @@ function Navbar({ handleSearch, handleCart }) {
             src="shopping-cart.png"
             className="cartIcon"
             data-bs-toggle="offcanvas"
-            data-bs-target="#offcanvasRight" // Updated to match the new offcanvas ID
-            aria-controls="offcanvasRight" // Updated to match the new offcanvas ID
+            data-bs-target="#offcanvasRight"
+            aria-controls="offcanvasRight"
             onClick={handleCart}
             alt="cart"
           />

@@ -26,10 +26,6 @@ function App() {
   const [cart, setCart] = useCart([]);
   const [isCartIcon, setIsCartIcon] = useState(false);
 
-
-    
-  
-
   const getData = async (page, sort, sortOrder) => {
     const skip = (page - 1) * productsPerPage;
     const sortType = sort ? `&sortBy=${sort}&order=${sortOrder}` : "";
@@ -101,15 +97,13 @@ function App() {
 
   const handleAddToCart = (product) => {
     setCart([...cart, product]);
-    localStorage.setItem('cart', JSON.stringify([...cart, product]));
-
+    localStorage.setItem("cart", JSON.stringify([...cart, product]));
   };
-  
-  
+
   const handleCart = () => {
     setIsCartIcon(true);
   };
- 
+
   return (
     <>
       <Navbar
