@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
 import Navbar from "./Navbar.jsx";
-import Dropdown from "./Dropdown.jsx";
 import ProductCard from "./ProductCard.jsx";
 import ProductDetail from "./ProductDetail.jsx";
 import Pagination from "./Pagination.jsx";
 import Footer from "./Footer.jsx";
 import Cart from "./Cart.jsx";
-import { useCart } from "./cartContext.jsx";
+import Sort from "./Sort.jsx";
 
 function App() {
   const [products, setProducts] = useState([]);
@@ -23,8 +22,13 @@ function App() {
   const [productsPerPage, setProductsPerPage] = useState(5);
 
   const [isCategoryFilter, setIsCategoryFilter] = useState(false);
-  const [cart, setCart] = useCart([]);
+  const [cart, setCart] = useState([]);
   const [isCartIcon, setIsCartIcon] = useState(false);
+
+  useEffect(() => {
+    const existingCartItem = localStorage.getItem("cart");
+    if (existingCartItem) setCart(JSON.parse(existingCartItem));
+  }, []);
 
   const getData = async (page, sort, sortOrder) => {
     const skip = (page - 1) * productsPerPage;
@@ -96,8 +100,9 @@ function App() {
   };
 
   const handleAddToCart = (product) => {
-    setCart([...cart, product]);
-    localStorage.setItem("cart", JSON.stringify([...cart, product]));
+    const updatedCart = [...cart, product];
+    setCart(updatedCart);
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
   };
 
   const handleCart = () => {
@@ -115,10 +120,8 @@ function App() {
         handleCategoryFilter={handleCategoryFilter}
         handleCart={handleCart}
       />
-      <div className="dropdowns">
-        <Dropdown type="sort" setSort={setSort} setSortOrder={setSortOrder} />
-        <Dropdown type="category" handleAction={handleCategoryFilter} />
-      </div>
+
+      <Sort setSort={setSort} setSortOrder={setSortOrder} />
 
       <ProductCard
         products={products}
@@ -134,7 +137,11 @@ function App() {
         setPage={setPage}
       />
 
-      <ProductDetail selectedProduct={selectedProduct} />
+      <ProductDetail
+        selectedProduct={selectedProduct}
+        handleAddToCart={handleAddToCart}
+      />
+
       <Cart cart={cart} isCartIcon={isCartIcon} setCart={setCart} />
 
       <Footer />

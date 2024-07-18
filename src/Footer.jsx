@@ -49,7 +49,7 @@ function Footer({}) {
           <h3>Contact</h3>
           <p>Islamabad, Pakistan.</p>
           <p>Call: +923000725776</p>
-          <p>support@beautyStore.pk</p>
+          <p>support@productsApp.pk</p>
         </div>
         <div className="footer-section footer-section2">
           <h3>Information</h3>

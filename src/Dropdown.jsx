@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./App.css";
 
-function Dropdown({ type, handleAction, setSort, setSortOrder }) {
+function Dropdown({ type, handleAction, productsPerPage }) {
   const [category, setCategory] = useState("");
 
   const CategoryFilter = (category) => {
@@ -12,10 +12,7 @@ function Dropdown({ type, handleAction, setSort, setSortOrder }) {
   const ProductsPerPage = (number) => {
     handleAction(number);
   };
-  const handleSort = (value, order) => {
-    setSort(value);
-    setSortOrder(order);
-  };
+
   return (
     <>
       {type === "category" ? (
@@ -27,7 +24,7 @@ function Dropdown({ type, handleAction, setSort, setSortOrder }) {
             data-bs-toggle="dropdown"
             aria-expanded="false"
           >
-            Filter By Category
+            {category === "" ? "Filter By Category" : category}
           </button>
           <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
             <li>
@@ -68,7 +65,7 @@ function Dropdown({ type, handleAction, setSort, setSortOrder }) {
             </li>
           </ul>
         </div>
-      ) : type === "productsPerPage" ? (
+      ) : (
         <div className="dropdown">
           <button
             className="btn btn-secondary dropdown-toggle dropdown_Btn"
@@ -77,7 +74,7 @@ function Dropdown({ type, handleAction, setSort, setSortOrder }) {
             data-bs-toggle="dropdown"
             aria-expanded="false"
           >
-            Products Per Page
+            {productsPerPage === 0 ? "Products Per Page" : productsPerPage}
           </button>
           <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
             <li>
@@ -114,56 +111,6 @@ function Dropdown({ type, handleAction, setSort, setSortOrder }) {
                 href="#"
               >
                 20
-              </a>
-            </li>
-          </ul>
-        </div>
-      ) : (
-        <div className="dropdown">
-          <button
-            className="btn btn-secondary dropdown-toggle filter_Dropdown"
-            type="button"
-            id="dropdownMenuButton1"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
-            SORT BY
-          </button>
-          <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-            <li>
-              <a
-                className="dropdown-item"
-                onClick={() => handleSort("price", "asc")}
-                href="#"
-              >
-                Price(Low to High)
-              </a>
-            </li>
-            <li>
-              <a
-                className="dropdown-item"
-                onClick={() => handleSort("price", "desc")}
-                href="#"
-              >
-                Price(High to Low)
-              </a>
-            </li>
-            <li>
-              <a
-                className="dropdown-item"
-                onClick={() => handleSort("title", "asc")}
-                href="#"
-              >
-                Alphabetically(A to Z)
-              </a>
-            </li>
-            <li>
-              <a
-                className="dropdown-item"
-                onClick={() => handleSort("title", "desc")}
-                href="#"
-              >
-                Alphabetically(Z to A)
               </a>
             </li>
           </ul>

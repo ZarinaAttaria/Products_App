@@ -32,7 +32,11 @@ function Pagination({
   return (
     <>
       <div className="pagination">
-        <Dropdown type="productsPerPage" handleAction={handleProductsPerPage} />
+        <Dropdown
+          type="productsPerPage"
+          productsPerPage={productsPerPage}
+          handleAction={handleProductsPerPage}
+        />
         <button
           onClick={handlePrevious}
           disabled={page === 1}
@@ -52,11 +56,6 @@ function Pagination({
         >
           Next
         </button>
-        {productsPerPage * page >= totalProducts ? (
-          <span>No more products to show </span>
-        ) : (
-          ""
-        )}
       </div>
     </>
   );

@@ -63,7 +63,6 @@ body {
 .btn-primary:hover {
   background-color: #0056b3;
 }
-/* App.css */
 
 .sort-buttons {
   margin: 10px;
@@ -128,6 +127,7 @@ body {
 }
 .productPrice {
   color: green;
+  margin-top: 10px;
 }
 
 .sortContainer {
@@ -165,8 +165,8 @@ body {
 
 .pagination {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: end;
+
   gap: 10px;
   margin: 20px 0;
 }
@@ -183,9 +183,14 @@ body {
   width: 30px;
   margin: 10px;
 }
-.totalPrice {
+.totalPrice,
+.product-price {
   color: green;
 }
 .cartSummary {
   margin-top: 20px;
+}
+.sortIcon {
+  width: 50px;
+  height: 50px;
 }

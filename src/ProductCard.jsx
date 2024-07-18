@@ -5,7 +5,7 @@ function ProductCard({ products, handleMoreDetails, handleAddToCart }) {
   return (
     <>
       <div className="container">
-        {products.map((product, id) => (
+        {products.map((product) => (
           <div className="card" style={{ width: "18rem" }} key={product.id}>
             <img
               src={product.images[0]}
@@ -15,18 +15,21 @@ function ProductCard({ products, handleMoreDetails, handleAddToCart }) {
             />
             <div className="card-body">
               <h5 className="card-title">{product.title}</h5>
-              <p className="card-text">Rs {product.price}</p>
+              <p className="card-text product-price">
+                Price: $ {product.price}
+              </p>
+              <p className="card-text">Rating: {product.rating}/5</p>
 
               <a
                 href="#"
-                className="btn btn-primary "
+                className="btn btn-primary"
                 onClick={() => handleAddToCart(product)}
               >
                 Add to Cart
               </a>
 
               <a
-                class="btn btn-primary product_Btns"
+                className="btn btn-primary product_Btns"
                 data-bs-toggle="offcanvas"
                 href="#offcanvasExample"
                 role="button"

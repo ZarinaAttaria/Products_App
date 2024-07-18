@@ -1,7 +1,8 @@
 import React from "react";
 import SearchInput from "./SearchInput";
+import Dropdown from "./Dropdown";
 
-function Navbar({ handleSearch, handleCart }) {
+function Navbar({ handleSearch, handleCart, handleCategoryFilter }) {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-dark">
       <div className="container-fluid">
@@ -31,13 +32,14 @@ function Navbar({ handleSearch, handleCart }) {
               </a>
             </li>
           </ul>
+          <Dropdown type="category" handleAction={handleCategoryFilter} />
           <SearchInput handleSearch={handleSearch} />
           <img
             src="shopping-cart.png"
             className="cartIcon"
             data-bs-toggle="offcanvas"
-            data-bs-target="#offcanvasRight"
-            aria-controls="offcanvasRight"
+            data-bs-target="#offcanvasCart"
+            aria-controls="offcanvasCart"
             onClick={handleCart}
             alt="cart"
           />

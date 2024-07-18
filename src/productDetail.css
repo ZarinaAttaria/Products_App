@@ -1,0 +1,65 @@
+.offcanvas-body img {
+  margin-bottom: 20px;
+}
+
+.productPrice {
+  font-size: 1.2em;
+  color: green;
+}
+
+.rating {
+  display: flex;
+  flex-direction: column;
+}
+
+.rating-stars {
+  color: gold;
+  margin-right: 5px;
+}
+.gray {
+  color: gray;
+  margin-right: 5px;
+}
+.reviews {
+  margin-top: 20px;
+}
+
+.review-item {
+  border-bottom: 1px solid #ddd;
+  padding: 10px 0;
+}
+
+.review-rating {
+  display: flex;
+  align-items: center;
+}
+
+.review-comment {
+  font-size: 1em;
+  color: #333;
+}
+
+.review-date,
+.review-author {
+  font-size: 0.9em;
+  color: #777;
+  margin-top: 5px;
+}
+
+.review-author {
+  font-weight: bold;
+}
+
+.add-to-cart {
+  background-color: rgb(188, 188, 15);
+  border: none;
+  padding: 10px 20px;
+  color: white;
+  text-transform: uppercase;
+  margin-top: 20px;
+  display: inline-block;
+  text-align: center;
+}
+.reviewAndRatingHeading {
+  margin-top: 20px;
+}
