@@ -59,7 +59,7 @@ function Cart({ isCartIcon, cart, setCart }) {
                  
                   <h6 className="productPrice">Price: $ {item.price}</h6>
                  
-                  <p>Minimum Order Quantity: {item.minimumOrderQuantity}</p>
+                  <p>Quantity: {item.minimumOrderQuantity}</p>
                   <button
                     className="btn btn-primary removeFromCartBtn"
                     onClick={() => handleRemoveCartItem(item.id)}
