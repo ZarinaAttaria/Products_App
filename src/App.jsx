@@ -133,21 +133,19 @@ function App() {
         handleCategoryFilter={handleCategoryFilter}
         handleCart={handleCart}
       />
-
-      <Sort setSort={setSort} setSortOrder={setSortOrder} />
-
-      <ProductCard
-        products={products}
-        handleMoreDetails={handleMoreDetails}
-        handleAddToCart={handleAddToCart}
-      />
-
       <Pagination
         totalProducts={totalProducts}
         productsPerPage={productsPerPage}
         setProductsPerPage={setProductsPerPage}
         page={page}
         setPage={setPage}
+      />
+      <Sort setSort={setSort} setSortOrder={setSortOrder} />
+
+      <ProductCard
+        products={products}
+        handleMoreDetails={handleMoreDetails}
+        handleAddToCart={handleAddToCart}
       />
 
       <ProductDetail

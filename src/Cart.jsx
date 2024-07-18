@@ -56,9 +56,9 @@ function Cart({ isCartIcon, cart, setCart }) {
                     style={{ width: "100%", objectFit: "cover" }}
                   />
                   <h6>{item.title}</h6>
-                  <p>{item.description}</p>
+                 
                   <h6 className="productPrice">Price: $ {item.price}</h6>
-                  <p>Rating: {item.rating}</p>
+                 
                   <p>Minimum Order Quantity: {item.minimumOrderQuantity}</p>
                   <button
                     className="btn btn-primary removeFromCartBtn"
