@@ -28,9 +28,9 @@ function ProductDetail({ selectedProduct, handleAddToCart }) {
         aria-labelledby="offcanvasExampleLabel"
       >
         <div className="offcanvas-header">
-          <h5 className="offcanvas-title" id="offcanvasExampleLabel">
-            Product Details
-          </h5>
+          <h3 className="offcanvas-title" id="offcanvasExampleLabel">
+            PRODUCT DETAILS
+          </h3>
           <button
             type="button"
             className="btn-close"
@@ -44,39 +44,40 @@ function ProductDetail({ selectedProduct, handleAddToCart }) {
               <img
                 src={selectedProduct.images[0]}
                 alt={selectedProduct.title}
-                style={{ width: "100%", objectFit: "cover" }}
+                className="product-image"
               />
-              <h4>{selectedProduct.title}</h4>
-
-              <p>{selectedProduct.description}</p>
-              <p>
+              <h4 className="product-title">{selectedProduct.title}</h4>
+              <p className="product-description">
+                {selectedProduct.description}
+              </p>
+              <p className="product-brand">
                 Brand:{" "}
-                {selectedProduct.brand === ""
-                  ? "No brand"
-                  : selectedProduct.brand}
+                {selectedProduct.brand ? selectedProduct.brand : "No brand"}
               </p>
 
-              <div>Rating: {renderStars(selectedProduct.rating)}</div>
-              <div>
+              <div className="product-rating">
+                Rating: {renderStars(selectedProduct.rating)}
+              </div>
+              <div className="product-price-container">
                 <h6 className="productPrice">
                   Price: Rs {selectedProduct.price}
                 </h6>
               </div>
 
-              <a
-                href="#"
+              <button
                 className="btn btn-primary add-to-cart"
                 onClick={() => handleAddToCart(selectedProduct)}
               >
                 Add to Cart
-              </a>
+              </button>
 
               <h3 className="reviewAndRatingHeading">Reviews & Ratings</h3>
-              <div className="rating">
+              <div className="product-rating-summary">
                 <h4>{selectedProduct.rating}</h4>
+
+                <div>{renderStars(selectedProduct.rating)}</div>
+                <h6>{selectedProduct.reviews.length} ratings</h6>
               </div>
-              <div>{renderStars(selectedProduct.rating)}</div>
-              <h6>{selectedProduct.reviews.length} ratings</h6>
 
               <div className="reviews">
                 {selectedProduct.reviews.map((item, index) => (

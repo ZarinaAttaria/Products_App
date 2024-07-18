@@ -1,0 +1,57 @@
+.sortIcon {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  margin: 10px;
+}
+
+.offcanvas-header {
+  background-color: #343a40;
+  color: white;
+  padding: 20px;
+  border-bottom: 1px solid #ddd;
+}
+
+.offcanvas-body {
+  padding: 20px;
+  background-color: #f8f9fa;
+}
+
+.form-check {
+  margin-bottom: 20px;
+}
+
+.form-check-input {
+  margin-right: 10px;
+}
+
+.form-check-label {
+  font-size: 1.1em;
+  color: #333;
+}
+
+.offcanvas-title {
+  font-size: 1.5em;
+  font-weight: 700;
+}
+
+.btn-close {
+  background-color: white;
+  border: none;
+}
+
+.sort-button {
+  background-color: rgb(24, 170, 180);
+
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  margin: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.sort-button:hover {
+  background-color: #0056b3;
+}

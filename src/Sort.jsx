@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.css";
-
+import "./Sort.css";
 function Sort({ setSort, setSortOrder }) {
   return (
     <>
@@ -54,8 +54,12 @@ function Sort({ setSort, setSortOrder }) {
             </label>
           </div>
 
-          <button onClick={() => setSortOrder("asc")}>Ascending</button>
-          <button onClick={() => setSortOrder("desc")}>Descending</button>
+          <button className="sort-button" onClick={() => setSortOrder("asc")}>
+            Ascending
+          </button>
+          <button className="sort-button" onClick={() => setSortOrder("desc")}>
+            Descending
+          </button>
         </div>
       </div>
     </>

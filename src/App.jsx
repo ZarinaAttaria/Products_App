@@ -8,6 +8,7 @@ import Footer from "./Footer.jsx";
 import Cart from "./Cart.jsx";
 import Sort from "./Sort.jsx";
 import _ from "lodash";
+import { toast, Toaster } from "react-hot-toast";
 
 function App() {
   const [products, setProducts] = useState([]);
@@ -111,6 +112,7 @@ function App() {
     const updatedCart = [...cart, product];
     setCart(updatedCart);
     localStorage.setItem("cart", JSON.stringify(updatedCart));
+    toast.success("Item added to cart!");
   };
 
   const handleCart = () => {
@@ -119,6 +121,9 @@ function App() {
 
   return (
     <>
+      <div>
+        <Toaster position="top-center" reverseOrder={false} />
+      </div>
       <Navbar
         setProducts={setProducts}
         productsPerPage={productsPerPage}

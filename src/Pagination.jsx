@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import "./App.css";
 import Dropdown from "./Dropdown";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import "./Pagination.css";
 function Pagination({
   totalProducts,
   productsPerPage,
@@ -29,34 +31,31 @@ function Pagination({
   };
 
   return (
-    <>
-      <div className="pagination">
-        <Dropdown
-          type="productsPerPage"
-          productsPerPage={productsPerPage}
-          handleAction={handleProductsPerPage}
-        />
-        <button
-          onClick={handlePrevious}
-          disabled={page === 1}
-          className="pagination_button "
-        >
-          Previous
-        </button>
-        <span>Page {page}</span>
-        <span>
-          {first}-{last} of {totalProducts} products showing
-        </span>
-
-        <button
-          onClick={handleNext}
-          disabled={productsPerPage * page >= totalProducts}
-          className="pagination_button"
-        >
-          Next
-        </button>
-      </div>
-    </>
+    <div className="pagination">
+      <Dropdown
+        type="productsPerPage"
+        productsPerPage={productsPerPage}
+        handleAction={handleProductsPerPage}
+      />
+      <button
+        onClick={handlePrevious}
+        disabled={page === 1}
+        className="pagination_button"
+      >
+        <FontAwesomeIcon icon={faArrowLeft} />
+      </button>
+      <span>Page {page}</span>
+      <span>
+        {first}-{last} of {totalProducts} products showing
+      </span>
+      <button
+        onClick={handleNext}
+        disabled={productsPerPage * page >= totalProducts}
+        className="pagination_button"
+      >
+        <FontAwesomeIcon icon={faArrowRight} />
+      </button>
+    </div>
   );
 }
 

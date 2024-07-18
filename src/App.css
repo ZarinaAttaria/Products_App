@@ -75,7 +75,7 @@ body {
 }
 
 .navbar {
-  width: 1220px;
+  background-color: black !important;
 }
 
 .navbar-brand {
@@ -121,11 +121,11 @@ body {
 }
 
 .HomeLink:hover {
-  background-color: #6688ab;
+  color: rgb(53, 198, 234);
 }
 
 .navbar-brand:hover {
-  background-color: #6688ab;
+  color: rgb(53, 198, 234);
 }
 
 .pagination {
@@ -192,6 +192,7 @@ body {
 }
 .filter_Dropdown {
   margin: 10px;
+  background-color: cadetblue;
 }
 @media (max-width: 768px) {
   .container {

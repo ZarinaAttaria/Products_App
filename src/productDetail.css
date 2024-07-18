@@ -1,10 +1,24 @@
+.offcanvas-header {
+  background-color: #343a40;
+  color: white;
+  padding: 20px;
+  border-bottom: 1px solid #ddd;
+}
+
+.offcanvas-body {
+  padding: 20px;
+  background-color: #f8f9fa;
+}
+
 .offcanvas-body img {
   margin-bottom: 20px;
+  border-radius: 10px;
 }
 
 .productPrice {
   font-size: 1.2em;
   color: green;
+  margin: 10px 0;
 }
 
 .rating {
@@ -16,16 +30,18 @@
   color: gold;
   margin-right: 5px;
 }
+
 .gray {
   color: gray;
   margin-right: 5px;
 }
+
 .reviews {
   margin-top: 20px;
 }
 
 .review-item {
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #a09898;
   padding: 10px 0;
 }
 
@@ -42,7 +58,7 @@
 .review-date,
 .review-author {
   font-size: 0.9em;
-  color: #777;
+  color: #282727;
   margin-top: 5px;
 }
 
@@ -51,8 +67,7 @@
 }
 
 .add-to-cart {
-  background-color: rgb(103, 193, 14);
-
+  background-color: #67c10e;
   border: none;
   padding: 10px 20px;
   color: white;
@@ -60,7 +75,50 @@
   margin-top: 20px;
   display: inline-block;
   text-align: center;
+  transition: background-color 0.3s ease;
 }
+
+.add-to-cart:hover {
+  background-color: #5aaf0b;
+}
+
 .reviewAndRatingHeading {
   margin-top: 20px;
+  color: #333;
+  border-bottom: 2px solid #bbb8b8;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+.product-title {
+  font-size: 1.5em;
+  margin: 10px 0;
+}
+
+.product-description {
+  font-size: 1em;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.product-brand {
+  font-size: 1em;
+  color: #888;
+  margin-bottom: 10px;
+}
+
+.product-rating {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.product-price-container {
+  margin-bottom: 20px;
+}
+
+.product-image {
+  width: 100%;
+  object-fit: cover;
+  border-radius: 10px;
 }

@@ -1,5 +1,6 @@
 import React from "react";
-
+import { toast } from "react-toastify";
+import "./Cart.css";
 function Cart({ isCartIcon, cart, setCart }) {
   const handleRemoveCartItem = (pid) => {
     let myCart = [...cart];
@@ -7,6 +8,7 @@ function Cart({ isCartIcon, cart, setCart }) {
     myCart.splice(index, 1);
     setCart(myCart);
     localStorage.setItem("cart", JSON.stringify(myCart));
+    toast.success("Item removed from cart!");
   };
 
   const totalPrice = () => {
@@ -26,15 +28,21 @@ function Cart({ isCartIcon, cart, setCart }) {
     >
       <div className="offcanvas-header">
         <h4 className="offcanvas-title" id="offcanvasCartLabel">
-          Welcome to Cart Page
+          CART
         </h4>
-        <h5>You have {cart?.length} items in cart</h5>
+
         <button
           type="button"
           className="btn-close"
           data-bs-dismiss="offcanvas"
           aria-label="Close"
         ></button>
+      </div>
+      <div>
+        <h5 className="cart-Item-heading">
+          {" "}
+          You have {cart?.length} items in cart!
+        </h5>
       </div>
       {isCartIcon && (
         <div className="offcanvas-body">
@@ -48,9 +56,8 @@ function Cart({ isCartIcon, cart, setCart }) {
                     style={{ width: "100%", objectFit: "cover" }}
                   />
                   <h6>{item.title}</h6>
-
                   <p>{item.description}</p>
-                  <h6 className="productPrice">Price: Rs {item.price}</h6>
+                  <h6 className="productPrice">Price: $ {item.price}</h6>
                   <p>Rating: {item.rating}</p>
                   <p>Minimum Order Quantity: {item.minimumOrderQuantity}</p>
                   <button

@@ -36,7 +36,7 @@
 
 .footer-link:hover {
   text-decoration: underline;
-  color: rgb(251, 55, 251);
+  color: rgb(53, 198, 234);
 }
 
 .social-icons {
@@ -69,7 +69,8 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  background-color: rgb(251, 55, 251);
+  background-color: rgb(53, 198, 234);
+
   color: #fff;
   flex-grow: 1;
 }
