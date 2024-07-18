@@ -1,50 +1,49 @@
 body {
   width: 100%;
   height: auto;
-}
-.container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  padding: 1rem;
+  margin: 0;
+  font-family: Arial, sans-serif;
   background-color: #f8f9fa;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 20px;
+  justify-items: center;
 }
 
 .card {
   background-color: #fff;
-  border: none;
+  border: 1px solid #ddd;
   border-radius: 0.5rem;
   overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
 }
-.pagination_button {
-  background-color: black !important;
-  color: white !important;
+
+.card:hover {
+  transform: translateY(-10px);
 }
-.dropdown_Btn {
-  background-color: rgb(61, 58, 58) !important;
-  color: white !important;
-}
-.navbar {
-  width: 1220px;
-}
-.navbar-brand {
-  color: white !important;
-}
-.nav-link {
-  color: white !important;
-}
+
 .card-img-top {
   border-top-left-radius: 0.5rem;
   border-top-right-radius: 0.5rem;
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
 }
 
 .card-body {
   padding: 1rem;
+  text-align: center;
 }
 
 .card-title {
   font-size: 1.25rem;
   margin-bottom: 0.5rem;
+  height: 60px;
 }
 
 .card-text {
@@ -52,53 +51,87 @@ body {
 }
 
 .btn-primary {
-  background-color: rgb(188, 188, 15);
+  background-color: #007bff;
   color: white;
   border: none;
   padding: 0.5rem 1rem;
   border-radius: 0.25rem;
   transition: background-color 0.2s;
+  margin-top: 10px;
 }
 
 .btn-primary:hover {
   background-color: #0056b3;
 }
 
+.pagination_button {
+  background-color: black !important;
+  color: white !important;
+}
+
+.dropdown_Btn {
+  background-color: rgb(61, 58, 58) !important;
+  color: white !important;
+}
+
+.navbar {
+  width: 1220px;
+}
+
+.navbar-brand {
+  color: white !important;
+}
+
+.nav-link {
+  color: white !important;
+}
+
 .sort-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
   margin: 10px;
 }
+
 .sort-btn {
   margin: 5px;
   width: 180px;
   height: 40px;
   background-color: rgb(24, 170, 180);
 }
-.filter_Dropdown {
-  margin: 10px;
-}
 
 .dropdown-menu {
   background-color: black;
   color: white;
 }
+
 .dropdown-item {
   color: white;
 }
+
 .search_Btn {
   background-color: darkgreen !important;
   color: white;
 }
+
 .search_Btn:hover {
   background-color: rgb(183, 179, 179) !important;
   color: black;
 }
+
 .HomeLink:hover {
   background-color: #6688ab;
 }
+
 .navbar-brand:hover {
   background-color: #6688ab;
 }
+
 .pagination {
+  display: flex;
+  justify-content: end;
+  gap: 10px;
   margin: 20px 0;
 }
 
@@ -121,76 +154,51 @@ body {
   margin: 0 10px;
   font-size: 18px;
 }
-.product_Btns {
-  margin: 5px;
-  background-color: #007bff;
-}
+
 .productPrice {
   color: green;
   margin-top: 10px;
 }
 
-.sortContainer {
-  margin: 10px;
-}
-.dropdowns {
-  display: flex;
-  flex-direction: row;
-}
-.sort-toggle-btn {
-  margin-bottom: 10px;
-}
-
-.sort-buttons {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-.sort-btn {
-  margin: 5px;
-}
-
-.container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
-}
-
-.card {
-  margin: 10px;
-}
-
-.pagination {
-  display: flex;
-  justify-content: end;
-
-  gap: 10px;
-  margin: 20px 0;
-}
-
-.pagination_button {
-  padding: 5px 10px;
-}
-
-.dropdown {
-  margin: 0 10px;
-}
 .cartIcon {
   height: 30px;
   width: 30px;
   margin: 10px;
 }
+
 .totalPrice,
 .product-price {
   color: green;
 }
+
 .cartSummary {
   margin-top: 20px;
 }
+
 .sortIcon {
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
+  margin: 10px;
+}
+
+.productDetailButton {
+  background-color: rgb(53, 198, 234);
+}
+.AddToCartBtn {
+  background-color: rgb(103, 193, 14);
+}
+.removeFromCartBtn {
+  background-color: rgb(197, 17, 17);
+}
+.filter_Dropdown {
+  margin: 10px;
+}
+@media (max-width: 768px) {
+  .container {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+
+  .navbar {
+    width: 100%;
+  }
 }

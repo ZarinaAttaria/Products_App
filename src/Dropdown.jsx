@@ -16,7 +16,7 @@ function Dropdown({ type, handleAction, productsPerPage }) {
   return (
     <>
       {type === "category" ? (
-        <div className="dropdown">
+        <div className="dropdown ">
           <button
             className="btn btn-secondary dropdown-toggle filter_Dropdown"
             type="button"

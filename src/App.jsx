@@ -7,6 +7,7 @@ import Pagination from "./Pagination.jsx";
 import Footer from "./Footer.jsx";
 import Cart from "./Cart.jsx";
 import Sort from "./Sort.jsx";
+import _ from "lodash";
 
 function App() {
   const [products, setProducts] = useState([]);
@@ -46,43 +47,50 @@ function App() {
 
   const searchProduct = async (query) => {
     const sortType = sort ? `&sortBy=${sort}&order=${sortOrder}` : "";
-    await fetch(
+    const response = await fetch(
       `https://dummyjson.com/products/search?q=${query}&limit=${productsPerPage}&skip=${
         (page - 1) * productsPerPage
       }${sortType}`
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        setProducts(data.products);
-        setTotalProducts(data.total);
-      });
+    );
+    const data = await response.json();
+    setProducts(data.products);
+    setTotalProducts(data.total);
   };
+
+  const debouncedSearch = _.debounce(searchProduct, 300);
 
   const categoryFilter = async (category) => {
     const skip = (page - 1) * productsPerPage;
     const sortType = sort ? `&sortBy=${sort}&order=${sortOrder}` : "";
-    await fetch(
+    const response = await fetch(
       `https://dummyjson.com/products/category/${category}?limit=${productsPerPage}&skip=${skip}${sortType}`
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        setProducts(data.products);
-        setTotalProducts(data.total);
-      });
+    );
+    const data = await response.json();
+    setProducts(data.products);
+    setTotalProducts(data.total);
   };
 
   useEffect(() => {
-    if (isSearch) {
-      searchProduct(searchQuery);
+    if (isSearch && searchQuery.length >= 3) {
+      debouncedSearch(searchQuery);
     } else if (isCategoryFilter) {
       categoryFilter(filtercategory);
     } else {
       getData(page, sort, sortOrder);
     }
-  }, [page, sort, sortOrder, productsPerPage, isSearch, isCategoryFilter]);
+  }, [
+    page,
+    sort,
+    sortOrder,
+    productsPerPage,
+    isSearch,
+    isCategoryFilter,
+    searchQuery,
+  ]);
 
   const handleCategoryFilter = (category) => {
     setIsCategoryFilter(true);
+    setIsSearch(false);
     categoryFilter(category);
     setFilterCategory(category);
     setPage(1);
@@ -90,7 +98,7 @@ function App() {
 
   const handleSearch = (query) => {
     setIsSearch(true);
-    searchProduct(query);
+    setIsCategoryFilter(false);
     setSearchQuery(query);
     setPage(1);
   };

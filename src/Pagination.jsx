@@ -21,12 +21,11 @@ function Pagination({
   };
 
   const handleProductsPerPage = async (products_per_page) => {
-    {
-      page * productsPerPage >= totalProducts
-        ? ""
-        : setProductsPerPage(products_per_page);
+    const totalPages = Math.ceil(totalProducts / products_per_page);
+    if (page > totalPages) {
+      setPage(totalPages);
     }
-    setPage(1);
+    setProductsPerPage(products_per_page);
   };
 
   return (

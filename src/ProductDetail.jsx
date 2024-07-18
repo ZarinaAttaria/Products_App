@@ -46,8 +46,15 @@ function ProductDetail({ selectedProduct, handleAddToCart }) {
                 alt={selectedProduct.title}
                 style={{ width: "100%", objectFit: "cover" }}
               />
+              <h4>{selectedProduct.title}</h4>
+
               <p>{selectedProduct.description}</p>
-              <p>Brand: {selectedProduct.brand}</p>
+              <p>
+                Brand:{" "}
+                {selectedProduct.brand === ""
+                  ? "No brand"
+                  : selectedProduct.brand}
+              </p>
 
               <div>Rating: {renderStars(selectedProduct.rating)}</div>
               <div>
