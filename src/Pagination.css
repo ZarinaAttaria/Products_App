@@ -1,23 +1,19 @@
 .pagination {
-
   padding: 10px;
 }
 
 .pagination_button {
-  background-color: #007bff;
+  background-color: white !important;
   border: none;
-  color: white;
-  padding: 10px 20px;
-  margin: 0 10px;
-  border-radius: 5px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  transition: background-color 0.3s;
 }
-
-.pagination_button:disabled {
-  background-color: #ccc;
+.arrowIcon {
+  background-color: white;
+  color: black;
+  width: 90%;
+  height: 20px;
+}
+.pagination_button:disabled .arrowIcon {
+  color: #6a6767;
   cursor: not-allowed;
 }
 

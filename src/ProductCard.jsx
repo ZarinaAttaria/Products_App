@@ -1,7 +1,22 @@
 import React from "react";
 import "./App.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
 
 function ProductCard({ products, handleMoreDetails, handleAddToCart }) {
+  const renderStars = (rating) => {
+    const stars = [];
+    for (let i = 1; i <= 5; i++) {
+      stars.push(
+        <FontAwesomeIcon
+          key={i}
+          icon={faStar}
+          className={i <= rating ? "rating-stars" : "rating-stars gray"}
+        />
+      );
+    }
+    return stars;
+  };
   return (
     <div className="container">
       {products.map((product, index) => (
@@ -13,8 +28,8 @@ function ProductCard({ products, handleMoreDetails, handleAddToCart }) {
           />
           <div className="card-body">
             <h5 className="card-title">{product.title}</h5>
-            <p className="card-text product-price">Price: $ {product.price}</p>
-            <p className="card-text">Rating: {product.rating}/5</p>
+            <p className="card-text product-price"> $ {product.price}</p>
+            <p className="card-text">{renderStars(product.rating)}</p>
 
             <a
               href="#"

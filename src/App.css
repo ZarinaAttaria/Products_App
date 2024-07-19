@@ -72,6 +72,7 @@ body {
 .dropdown_Btn {
   background-color: rgb(61, 58, 58) !important;
   color: white !important;
+  height: 5% !important;
 }
 
 .navbar {
@@ -163,7 +164,19 @@ body {
 .cartIcon {
   height: 30px;
   width: 30px;
-  margin: 10px;
+}
+
+.badge .ant-badge-count {
+  position: absolute;
+  top: -1px;
+  right: -1px;
+  transform: translate(50%, -50%);
+}
+
+.cartIcon {
+  height: 30px;
+  width: 30px;
+  position: relative;
 }
 
 .totalPrice,
@@ -183,9 +196,11 @@ body {
 
 .productDetailButton {
   background-color: rgb(53, 198, 234);
+  width: 60%;
 }
 .AddToCartBtn {
   background-color: rgb(103, 193, 14);
+  width: 60%;
 }
 .removeFromCartBtn {
   background-color: rgb(197, 17, 17);

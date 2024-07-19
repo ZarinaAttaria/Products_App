@@ -18,10 +18,10 @@ function App() {
   const [isSearch, setIsSearch] = useState(false);
   const [totalProducts, setTotalProducts] = useState(0);
   const [searchQuery, setSearchQuery] = useState("");
-  const [filtercategory, setFilterCategory] = useState("");
+  const [filterCategory, setFilterCategory] = useState("");
 
   const [selectedProduct, setSelectedProduct] = useState(null);
-  const [productsPerPage, setProductsPerPage] = useState(5);
+  const [productsPerPage, setProductsPerPage] = useState(4);
 
   const [isCategoryFilter, setIsCategoryFilter] = useState(false);
   const [cart, setCart] = useState([]);
@@ -43,6 +43,7 @@ function App() {
       .then((data) => {
         setProducts(data.products);
         setTotalProducts(data.total);
+        console.log(`Fetched data for page ${page}:`, data.products);
       });
   };
 
@@ -56,6 +57,7 @@ function App() {
     const data = await response.json();
     setProducts(data.products);
     setTotalProducts(data.total);
+    console.log(`Fetched search results for page ${page}:`, data.products);
   };
 
   const debouncedSearch = _.debounce(searchProduct, 300);
@@ -69,13 +71,14 @@ function App() {
     const data = await response.json();
     setProducts(data.products);
     setTotalProducts(data.total);
+    console.log(`Fetched category results for page ${page}:`, data.products);
   };
 
   useEffect(() => {
     if (isSearch && searchQuery.length >= 3) {
       debouncedSearch(searchQuery);
     } else if (isCategoryFilter) {
-      categoryFilter(filtercategory);
+      categoryFilter(filterCategory);
     } else {
       getData(page, sort, sortOrder);
     }
@@ -109,7 +112,15 @@ function App() {
   };
 
   const handleAddToCart = (product) => {
-    const updatedCart = [...cart, product];
+    const productIndex = cart?.findIndex((p) => p.id === product.id);
+    if (productIndex > -1) {
+      cart[productIndex].quantity += 1;
+    } else {
+      product.quantity = 1;
+      cart.push(product);
+    }
+
+    const updatedCart = [...cart];
     setCart(updatedCart);
     localStorage.setItem("cart", JSON.stringify(updatedCart));
     toast.success("Item added to cart!");
@@ -132,15 +143,19 @@ function App() {
         handleSearch={handleSearch}
         handleCategoryFilter={handleCategoryFilter}
         handleCart={handleCart}
+        cart={cart}
       />
-      <Pagination
-        totalProducts={totalProducts}
-        productsPerPage={productsPerPage}
-        setProductsPerPage={setProductsPerPage}
-        page={page}
-        setPage={setPage}
-      />
-      <Sort setSort={setSort} setSortOrder={setSortOrder} />
+      <div className="d-flex align-items-center justify-content-end">
+        <Sort setSort={setSort} setSortOrder={setSortOrder} />
+
+        <Pagination
+          totalProducts={totalProducts}
+          productsPerPage={productsPerPage}
+          setProductsPerPage={setProductsPerPage}
+          page={page}
+          setPage={setPage}
+        />
+      </div>
 
       <ProductCard
         products={products}

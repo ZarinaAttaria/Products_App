@@ -1,10 +1,11 @@
 import React from "react";
 import SearchInput from "./SearchInput";
 import Dropdown from "./Dropdown";
+import { Badge } from "antd";
 
-function Navbar({ handleSearch, handleCart, handleCategoryFilter }) {
+function Navbar({ cart, handleSearch, handleCart, handleCategoryFilter }) {
   return (
-    <nav className="navbar navbar-expand-lg bg-body-tertiary ">
+    <nav className="navbar navbar-expand-lg bg-body-tertiary">
       <div className="container-fluid">
         <a className="navbar-brand" href="#">
           ProductsApp
@@ -34,15 +35,18 @@ function Navbar({ handleSearch, handleCart, handleCategoryFilter }) {
           </ul>
           <Dropdown type="category" handleAction={handleCategoryFilter} />
           <SearchInput handleSearch={handleSearch} />
-          <img
-            src="shopping-cart.png"
-            className="cartIcon"
-            data-bs-toggle="offcanvas"
-            data-bs-target="#offcanvasCart"
-            aria-controls="offcanvasCart"
-            onClick={handleCart}
-            alt="cart"
-          />
+
+          <Badge className="badge" count={cart?.length} showZero>
+            <img
+              src="shopping-cart.png"
+              className="cartIcon"
+              data-bs-toggle="offcanvas"
+              data-bs-target="#offcanvasCart"
+              aria-controls="offcanvasCart"
+              onClick={handleCart}
+              alt="cart"
+            />
+          </Badge>
         </div>
       </div>
     </nav>

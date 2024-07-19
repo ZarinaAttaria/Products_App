@@ -1,21 +1,24 @@
 import React from "react";
 import { toast } from "react-toastify";
 import "./Cart.css";
+import { faMinus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function Cart({ isCartIcon, cart, setCart }) {
   const handleRemoveCartItem = (pid) => {
-  let myCart = [...cart];
-  let index = myCart.findIndex((item) => item._id === pid);
-  myCart.splice(index, 1);
-  setCart(myCart);
-  localStorage.setItem("cart", JSON.stringify(myCart));
+    let myCart = [...cart];
+    let index = myCart.findIndex((item) => item._id === pid);
+    myCart.splice(index, 1);
+    setCart(myCart);
+    localStorage.setItem("cart", JSON.stringify(myCart));
     toast.success("Item removed from cart!");
   };
 
   const increaseQuantity = (pid) => {
+    console.log(pid);
     const updatedCart = cart.map((item) => {
       if (item.id === pid) {
-        return { ...item, quantity: item.quantity + 1 };
+        return { ...item, quantity: (item.quantity || 0) + 1 };
       }
       return item;
     });
@@ -26,7 +29,7 @@ function Cart({ isCartIcon, cart, setCart }) {
   const decreaseQuantity = (pid) => {
     const updatedCart = cart.map((item) => {
       if (item.id === pid && item.quantity > 1) {
-        return { ...item, quantity: item.quantity - 1 };
+        return { ...item, quantity: (item.quantity || 0) - 1 };
       }
       return item;
     });
@@ -41,7 +44,11 @@ function Cart({ isCartIcon, cart, setCart }) {
     });
     return total.toFixed(2);
   };
-
+  const handleClearCart = () => {
+    setCart([]);
+    localStorage.setItem("cart", JSON.stringify([]));
+    toast.success("Cart has been cleared!");
+  };
   return (
     <div
       className="offcanvas offcanvas-end"
@@ -70,7 +77,7 @@ function Cart({ isCartIcon, cart, setCart }) {
       {isCartIcon && (
         <div className="offcanvas-body">
           {cart.length === 0 ? (
-            "Cart is Empty"
+            " "
           ) : (
             <>
               {cart.map((item, index) => (
@@ -84,9 +91,7 @@ function Cart({ isCartIcon, cart, setCart }) {
                     <h6>{item.title}</h6>
                     <p className="productPrice">Price: $ {item.price}</p>
                   </div>
-                  <div>
-                    
-                  </div>
+                  <div></div>
                   <div className="quantity-controls">
                     <button onClick={() => decreaseQuantity(item.id)}>-</button>
                     <span>{item.quantity}</span>
@@ -96,11 +101,20 @@ function Cart({ isCartIcon, cart, setCart }) {
                     className="btn btn-primary removeFromCartBtn"
                     onClick={() => handleRemoveCartItem(item.id)}
                   >
-                    Remove
+                    <FontAwesomeIcon icon={faMinus} />
                   </button>
                 </div>
               ))}
               <div>
+                <div className="clearButtonContainer">
+                  <button
+                    onClick={handleClearCart}
+                    className="btn btn-primary clearBtn"
+                  >
+                    Clear
+                  </button>
+                </div>
+
                 <h3 className="cartSummary">Cart Summary</h3>
                 <hr />
                 <h4 className="totalPrice">Total: $ {totalPrice()}</h4>

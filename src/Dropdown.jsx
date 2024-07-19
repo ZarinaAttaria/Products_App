@@ -63,6 +63,11 @@ function Dropdown({ type, handleAction, productsPerPage }) {
                 Groceries
               </a>
             </li>
+            <li>
+              <a className="dropdown-item" href="/">
+                All
+              </a>
+            </li>
           </ul>
         </div>
       ) : (
@@ -80,37 +85,37 @@ function Dropdown({ type, handleAction, productsPerPage }) {
             <li>
               <a
                 className="dropdown-item"
-                onClick={() => ProductsPerPage(5)}
+                onClick={() => ProductsPerPage(4)}
                 href="#"
               >
-                5
+                4
               </a>
             </li>
             <li>
               <a
                 className="dropdown-item"
-                onClick={() => ProductsPerPage(10)}
+                onClick={() => ProductsPerPage(8)}
                 href="#"
               >
-                10
+                8
               </a>
             </li>
             <li>
               <a
                 className="dropdown-item"
-                onClick={() => ProductsPerPage(15)}
+                onClick={() => ProductsPerPage(12)}
                 href="#"
               >
-                15
+                12
               </a>
             </li>
             <li>
               <a
                 className="dropdown-item"
-                onClick={() => ProductsPerPage(20)}
+                onClick={() => ProductsPerPage(16)}
                 href="#"
               >
-                20
+                16
               </a>
             </li>
           </ul>

@@ -4,6 +4,7 @@ import Dropdown from "./Dropdown";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import "./Pagination.css";
+
 function Pagination({
   totalProducts,
   productsPerPage,
@@ -13,6 +14,9 @@ function Pagination({
 }) {
   const first = (page - 1) * productsPerPage + 1;
   const last = Math.min(page * productsPerPage, totalProducts);
+
+  console.log(`Page: ${page}, Products Per Page: ${productsPerPage}`);
+  console.log(`First: ${first}, Last: ${last}, Total: ${totalProducts}`);
 
   const handleNext = () => {
     setPage((prevPage) => prevPage + 1);
@@ -31,7 +35,7 @@ function Pagination({
   };
 
   return (
-    <div className="pagination">
+    <div className="d-flex align-items-center m-3 justify-content-end">
       <Dropdown
         type="productsPerPage"
         productsPerPage={productsPerPage}
@@ -42,18 +46,18 @@ function Pagination({
         disabled={page === 1}
         className="pagination_button"
       >
-        <FontAwesomeIcon icon={faArrowLeft} />
+        <FontAwesomeIcon className="arrowIcon" icon={faArrowLeft} />
       </button>
-      <span>Page {page}</span>
+
       <span>
-        {first}-{last} of {totalProducts} products showing
+        {first}-{last} of {totalProducts}
       </span>
       <button
         onClick={handleNext}
         disabled={productsPerPage * page >= totalProducts}
         className="pagination_button"
       >
-        <FontAwesomeIcon icon={faArrowRight} />
+        <FontAwesomeIcon className="arrowIcon" icon={faArrowRight} />
       </button>
     </div>
   );
