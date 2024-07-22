@@ -50,7 +50,7 @@ function Pagination({
       </button>
 
       <span>
-        {first}-{last} of {totalProducts}
+        {first} - {last} of {totalProducts}
       </span>
       <button
         onClick={handleNext}

@@ -6,6 +6,7 @@ function SearchInput({ handleSearch }) {
 
   const handleChange = (e) => {
     setQuery(e.target.value);
+    handleSearch(e.target.value);
   };
 
   const handleSubmit = (e) => {

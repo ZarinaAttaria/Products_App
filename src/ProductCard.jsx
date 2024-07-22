@@ -19,8 +19,8 @@ function ProductCard({ products, handleMoreDetails, handleAddToCart }) {
   };
   return (
     <div className="container">
-      {products.map((product, index) => (
-        <div className="card" key={index}>
+      {products.map((product) => (
+        <div className="card" key={product.id}>
           <img
             src={product.images[0]}
             alt={product.title}

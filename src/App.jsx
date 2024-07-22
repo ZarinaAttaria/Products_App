@@ -60,8 +60,6 @@ function App() {
     console.log(`Fetched search results for page ${page}:`, data.products);
   };
 
-  const debouncedSearch = _.debounce(searchProduct, 300);
-
   const categoryFilter = async (category) => {
     const skip = (page - 1) * productsPerPage;
     const sortType = sort ? `&sortBy=${sort}&order=${sortOrder}` : "";
@@ -76,7 +74,7 @@ function App() {
 
   useEffect(() => {
     if (isSearch && searchQuery.length >= 3) {
-      debouncedSearch(searchQuery);
+      searchProduct(searchQuery);
     } else if (isCategoryFilter) {
       categoryFilter(filterCategory);
     } else {
@@ -99,12 +97,15 @@ function App() {
     setFilterCategory(category);
     setPage(1);
   };
+  const debouncedSearch = _.debounce(() => searchProduct(searchQuery), 500);
 
   const handleSearch = (query) => {
+    console.log(query);
     setIsSearch(true);
     setIsCategoryFilter(false);
     setSearchQuery(query);
     setPage(1);
+    debouncedSearch();
   };
 
   const handleMoreDetails = (product) => {
