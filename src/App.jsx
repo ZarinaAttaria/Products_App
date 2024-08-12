@@ -1,32 +1,29 @@
 import React, { useEffect, useState } from "react";
-import "./App.css";
+import axios from "axios";
+import _ from "lodash";
 import Navbar from "./Navbar.jsx";
 import ProductCard from "./ProductCard.jsx";
 import ProductDetail from "./ProductDetail.jsx";
 import Pagination from "./Pagination.jsx";
+import Sort from "./Sort.jsx";
 import Footer from "./Footer.jsx";
 import Cart from "./Cart.jsx";
-import Sort from "./Sort.jsx";
-import _ from "lodash";
 import { toast, Toaster } from "react-hot-toast";
-import axios from "axios";
 
 function App() {
   const [products, setProducts] = useState([]);
   const [page, setPage] = useState(1);
   const [sort, setSort] = useState("");
   const [sortOrder, setSortOrder] = useState("");
-  const [isSearch, setIsSearch] = useState(false);
   const [totalProducts, setTotalProducts] = useState(0);
   const [searchQuery, setSearchQuery] = useState("");
   const [filterCategory, setFilterCategory] = useState("");
-
-  const [selectedProduct, setSelectedProduct] = useState(null);
-  const [productsPerPage, setProductsPerPage] = useState(4);
-
+  const [isSearch, setIsSearch] = useState(false);
   const [isCategoryFilter, setIsCategoryFilter] = useState(false);
+  const [productsPerPage, setProductsPerPage] = useState(4);
   const [cart, setCart] = useState([]);
   const [isCartIcon, setIsCartIcon] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState(null);
 
   useEffect(() => {
     const existingCartItem = localStorage.getItem("cart");
@@ -39,16 +36,11 @@ function App() {
 
     try {
       const response = await axios.get(
-        `http://localhost:3000/api/products?limit=${productsPerPage}&skip=${skip}${sortType}`,
-        {
-          "Access-Control-Allow-Origin": "*",
-          "Content-Type": "application/json",
-        }
+        `http://localhost:3000/api/products/external?limit=${productsPerPage}&skip=${skip}${sortType}`
       );
       const data = response.data;
       setProducts(data.products);
       setTotalProducts(data.total);
-      console.log(`Fetched data for page ${page}:`, data.products);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -56,31 +48,35 @@ function App() {
 
   const searchProduct = async (query) => {
     const sortType = sort ? `&sortBy=${sort}&order=${sortOrder}` : "";
-    const response = await fetch(
-      `http://localhost:3000/api/search?q=${query}&limit=${productsPerPage}&skip=${
-        (page - 1) * productsPerPage
-      }${sortType}`,
-      {
-        "Access-Control-Allow-Origin": "*",
-        "Content-Type": "application/json",
-      }
-    );
-    const data = await response.json();
-    setProducts(data.products);
-    setTotalProducts(data.total);
-    console.log(`Fetched search results for page ${page}:`, data.products);
+
+    try {
+      const response = await axios.get(
+        `http://localhost:3000/api/products/external/search?q=${query}&limit=${productsPerPage}&skip=${
+          (page - 1) * productsPerPage
+        }${sortType}`
+      );
+      const data = response.data;
+      setProducts(data.products);
+      setTotalProducts(data.total);
+    } catch (error) {
+      console.error("Error fetching search results:", error);
+    }
   };
 
   const categoryFilter = async (category) => {
     const skip = (page - 1) * productsPerPage;
     const sortType = sort ? `&sortBy=${sort}&order=${sortOrder}` : "";
-    const response = await fetch(
-      `http://localhost:3000/api/products/category/${category}?limit=${productsPerPage}&skip=${skip}${sortType}`
-    );
-    const data = await response.json();
-    setProducts(data.products);
-    setTotalProducts(data.total);
-    console.log(`Fetched category results for page ${page}:`, data.products);
+
+    try {
+      const response = await axios.get(
+        `http://localhost:3000/api/products/external/category/${category}?limit=${productsPerPage}&skip=${skip}${sortType}`
+      );
+      const data = response.data;
+      setProducts(data.products);
+      setTotalProducts(data.total);
+    } catch (error) {
+      console.error("Error fetching category results:", error);
+    }
   };
 
   useEffect(() => {
@@ -104,14 +100,13 @@ function App() {
   const handleCategoryFilter = (category) => {
     setIsCategoryFilter(true);
     setIsSearch(false);
-    categoryFilter(category);
     setFilterCategory(category);
     setPage(1);
   };
+
   const debouncedSearch = _.debounce(() => searchProduct(searchQuery), 500);
 
   const handleSearch = (query) => {
-    console.log(query);
     setIsSearch(true);
     setIsCategoryFilter(false);
     setSearchQuery(query);
