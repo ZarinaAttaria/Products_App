@@ -9,6 +9,7 @@ import Cart from "./Cart.jsx";
 import Sort from "./Sort.jsx";
 import _ from "lodash";
 import { toast, Toaster } from "react-hot-toast";
+import axios from "axios";
 
 function App() {
   const [products, setProducts] = useState([]);
@@ -36,15 +37,21 @@ function App() {
     const skip = (page - 1) * productsPerPage;
     const sortType = sort ? `&sortBy=${sort}&order=${sortOrder}` : "";
 
-    await fetch(
-      `https://dummyjson.com/products?limit=${productsPerPage}&skip=${skip}${sortType}`
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        setProducts(data.products);
-        setTotalProducts(data.total);
-        console.log(`Fetched data for page ${page}:`, data.products);
-      });
+    try {
+      const response = await axios.get(
+        `http://localhost:3000/api/products?limit=${productsPerPage}&skip=${skip}${sortType}`,
+        {
+          "Access-Control-Allow-Origin": "*",
+          "Content-Type": "application/json",
+        }
+      );
+      const data = response.data;
+      setProducts(data.products);
+      setTotalProducts(data.total);
+      console.log(`Fetched data for page ${page}:`, data.products);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
   };
 
   const searchProduct = async (query) => {
