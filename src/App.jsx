@@ -57,9 +57,13 @@ function App() {
   const searchProduct = async (query) => {
     const sortType = sort ? `&sortBy=${sort}&order=${sortOrder}` : "";
     const response = await fetch(
-      `https://dummyjson.com/products/search?q=${query}&limit=${productsPerPage}&skip=${
+      `http://localhost:3000/api/search?q=${query}&limit=${productsPerPage}&skip=${
         (page - 1) * productsPerPage
-      }${sortType}`
+      }${sortType}`,
+      {
+        "Access-Control-Allow-Origin": "*",
+        "Content-Type": "application/json",
+      }
     );
     const data = await response.json();
     setProducts(data.products);
@@ -71,7 +75,7 @@ function App() {
     const skip = (page - 1) * productsPerPage;
     const sortType = sort ? `&sortBy=${sort}&order=${sortOrder}` : "";
     const response = await fetch(
-      `https://dummyjson.com/products/category/${category}?limit=${productsPerPage}&skip=${skip}${sortType}`
+      `http://localhost:3000/api/products/category/${category}?limit=${productsPerPage}&skip=${skip}${sortType}`
     );
     const data = await response.json();
     setProducts(data.products);
