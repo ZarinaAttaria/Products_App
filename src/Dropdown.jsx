@@ -30,37 +30,37 @@ function Dropdown({ type, handleAction, productsPerPage }) {
             <li>
               <a
                 className="dropdown-item"
-                onClick={() => CategoryFilter("beauty")}
+                onClick={() => CategoryFilter("Makeup")}
                 href="#"
               >
-                Beauty
+                Makeup
               </a>
             </li>
             <li>
               <a
                 className="dropdown-item"
-                onClick={() => CategoryFilter("fragrances")}
+                onClick={() => CategoryFilter("Wearables")}
                 href="#"
               >
-                Fragrances
+                Wearables
               </a>
             </li>
             <li>
               <a
                 className="dropdown-item"
-                onClick={() => CategoryFilter("furniture")}
+                onClick={() => CategoryFilter("Home Appliances")}
                 href="#"
               >
-                Furniture
+                Home Appliances
               </a>
             </li>
             <li>
               <a
                 className="dropdown-item"
-                onClick={() => CategoryFilter("groceries")}
+                onClick={() => CategoryFilter("Electronics")}
                 href="#"
               >
-                Groceries
+                Electronics
               </a>
             </li>
             <li>

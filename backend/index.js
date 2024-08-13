@@ -17,7 +17,6 @@ app.get("/", (req, res) => {
 app.post("/api/products", async (req, res) => {
   try {
     const { title, description, price, category, imageUrl, rating } = req.body;
-
     if (!title || !price) {
       return res.status(400).json({ error: "Title and Price are required" });
     }
@@ -45,9 +44,48 @@ app.post("/api/products", async (req, res) => {
 
 app.get("/api/products", async (req, res) => {
   try {
-    const products = await Product.find();
+    const { limit = 4, skip = 0, sortBy = "price", order = "asc" } = req.query;
 
-    res.status(200).json(products);
+    let products = await Product.find();
+
+    const Reviews = [
+      {
+        reviewerName: "Zarina Attaria",
+        rating: 5,
+        comment: "Great product!",
+        date: "2024-08-13T07:25:17.627Z",
+      },
+      {
+        reviewerName: "Ayesha",
+        rating: 4,
+        comment: "Good quality, but a bit expensive.",
+        date: "2024-08-14T07:25:17.627Z",
+      },
+    ];
+    products = products.map((product) => ({
+      ...product.toObject(),
+      reviews: Reviews,
+    }));
+
+    products = products.sort((a, b) => {
+      if (order === "asc") {
+        return a[sortBy] > b[sortBy] ? 1 : -1;
+      } else {
+        return a[sortBy] < b[sortBy] ? 1 : -1;
+      }
+    });
+
+    const paginatedProducts = products.slice(
+      Number(skip),
+      Number(skip) + Number(limit)
+    );
+
+    res.status(200).json({
+      products: paginatedProducts,
+      total: products.length,
+      limit: Number(limit),
+      skip: Number(skip),
+    });
   } catch (error) {
     console.error("Error in fetching all products", error);
     res.status(500).json({
@@ -69,10 +107,6 @@ app.get("/api/products/:id", async (req, res) => {
       details: error.message,
     });
   }
-});
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
 });
 
 app.delete("/api/products/:id", async (req, res) => {
@@ -112,6 +146,66 @@ app.put("/api/products/:id", async (req, res) => {
     console.log("Error in updating product", error);
     res.status(500).json({
       error: "Failed to update product",
+      details: error.message,
+    });
+  }
+});
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
+
+app.get("/api/products/category/:category", async (req, res) => {
+  try {
+    const { category } = req.params;
+    console.log("Category received:", category);
+    const products = await Product.find({
+      category: new RegExp(`^${category}$`, "i"),
+    });
+    console.log("Products found:", products);
+
+    if (!products.length) {
+      return res
+        .status(404)
+        .json({ error: "No products found in this category" });
+    }
+
+    res.status(200).json(products);
+  } catch (error) {
+    console.error("Error in fetching products by category", error);
+    res.status(500).json({
+      error: "Failed to fetch products by category",
+      details: error.message,
+    });
+  }
+});
+
+app.get("/api/products/search/:query", async (req, res) => {
+  try {
+    const { query } = req.params;
+    const trimmedQuery = query.trim();
+    console.log("Search query received:", trimmedQuery);
+    const regex = new RegExp(trimmedQuery, "i");
+    console.log("Generated regex pattern:", regex);
+
+    const products = await Product.find({
+      $or: [{ title: { $regex: regex } }, { description: { $regex: regex } }],
+    });
+
+    console.log("Products found:", products);
+
+    if (!products.length) {
+      return res
+        .status(404)
+        .json({ error: "No products found matching the search criteria" });
+    }
+
+    res.status(200).json(products);
+  } catch (error) {
+    console.error("Error in searching products", error);
+    res.status(500).json({
+      error: "Failed to search products",
       details: error.message,
     });
   }

@@ -35,10 +35,12 @@ function App() {
     const sortType = sort ? `&sortBy=${sort}&order=${sortOrder}` : "";
 
     try {
-      const response = await axios.get(`http://localhost:3000/api/products`);
-      const data = response.data;
-      setProducts(data.products);
-      setTotalProducts(data.total);
+      const response = await axios.get(
+        `http://localhost:3000/api/products?limit=${productsPerPage}&skip=${skip}${sortType}`
+      );
+      const { products, total } = response.data;
+      setProducts(products);
+      setTotalProducts(total);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -49,13 +51,11 @@ function App() {
 
     try {
       const response = await axios.get(
-        `http://localhost:3000/api/products/external/search?q=${query}&limit=${productsPerPage}&skip=${
-          (page - 1) * productsPerPage
-        }${sortType}`
+        `http://localhost:3000/api/products/search/${query}`
       );
-      const data = response.data;
-      setProducts(data.products);
-      setTotalProducts(data.total);
+      // const data = response.data;
+      setProducts(response.data);
+      setTotalProducts(response.data.length);
     } catch (error) {
       console.error("Error fetching search results:", error);
     }
@@ -67,11 +67,11 @@ function App() {
 
     try {
       const response = await axios.get(
-        `http://localhost:3000/api/products/external/category/${category}?limit=${productsPerPage}&skip=${skip}${sortType}`
+        `http://localhost:3000/api/products/category/${category}?limit=${productsPerPage}&skip=${skip}${sortType}`
       );
-      const data = response.data;
-      setProducts(data.products);
-      setTotalProducts(data.total);
+      // const { products, total } = response.data;
+      setProducts(response.data);
+      setTotalProducts(response.data.length);
     } catch (error) {
       console.error("Error fetching category results:", error);
     }
@@ -93,6 +93,7 @@ function App() {
     isSearch,
     isCategoryFilter,
     searchQuery,
+    filterCategory,
   ]);
 
   const handleCategoryFilter = (category) => {

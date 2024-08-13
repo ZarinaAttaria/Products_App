@@ -42,7 +42,7 @@ function ProductDetail({ selectedProduct, handleAddToCart }) {
           {selectedProduct && (
             <>
               <img
-                src={selectedProduct.images[0]}
+                src={selectedProduct.imageUrl}
                 alt={selectedProduct.title}
                 className="product-image"
               />
