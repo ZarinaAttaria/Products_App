@@ -1,9 +1,12 @@
 const express = require("express");
-const app = express();
-// const data = require("./PRODUCTS_DATA.json");
 const cors = require("cors");
-const { default: axios } = require("axios");
+const connectDb = require("./db");
+const Product = require("./Models/ProductModel");
+const { message } = require("antd");
 
+const app = express();
+
+connectDb();
 app.use(cors());
 app.use(express.json());
 
@@ -11,86 +14,90 @@ app.get("/", (req, res) => {
   res.send("Hi, World!");
 });
 
-app.get("/api/products/external", async (req, res) => {
-  const {
-    limit = 4,
-    skip = 0,
-    sortBy = "price",
-    order = "asc",
-    q = "",
-  } = req.query;
-
+app.post("/api/products", async (req, res) => {
   try {
-    const response = await axios.get("https://dummyjson.com/products");
-    let products = response.data.products;
+    const { title, description, price, category, imageUrl, rating } = req.body;
 
-    if (q) {
-      products = products.filter((product) =>
-        product.title.toLowerCase().includes(q.toLowerCase())
-      );
+    if (!title || !price) {
+      return res.status(400).json({ error: "Title and Price are required" });
     }
-    products = products.sort((a, b) => {
-      if (order === "asc") {
-        return a[sortBy] > b[sortBy] ? 1 : -1;
-      } else {
-        return a[sortBy] < b[sortBy] ? 1 : -1;
-      }
-    });
-    const paginatedProducts = products.slice(
-      Number(skip),
-      Number(skip) + Number(limit)
-    );
 
-    res.json({
-      products: paginatedProducts,
-      total: products.length,
-      limit: Number(limit),
-      skip: Number(skip),
+    const newProduct = new Product({
+      title,
+      description,
+      price,
+      category,
+      imageUrl,
+      rating,
     });
+
+    console.log(req.body);
+    const savedProduct = await newProduct.save();
+    res.status(201).json(savedProduct);
   } catch (error) {
-    console.error("Error fetching data from external API:", error);
+    console.error("Error in creating product", error);
     res.status(500).json({
-      error: "Failed to fetch data from external API",
+      error: "Failed to create product",
+      details: error.message,
+    });
+  }
+});
+app.get("/api/products/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const products = await Product.findById(id);
+    res.status(200).json(products);
+  } catch (error) {
+    console.error("Error in fetching product", error);
+    res.status(500).json({
+      error: "Failed to fetch product",
+      details: error.message,
+    });
+  }
+});
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
+
+app.delete("/api/products/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const deletedProduct = await Product.findByIdAndDelete(id);
+
+    if (!deletedProduct) {
+      return res.status(404).json({ error: "Product not found" });
+    }
+
+    res.status(200).json({ message: "Product deleted successfully" });
+  } catch (error) {
+    console.log("Error in deleting product", error);
+    res.status(500).json({
+      error: "Failed to delete product",
       details: error.message,
     });
   }
 });
 
-app.get("/api/products/external/search", async (req, res) => {
+app.put("/api/products/:id", async (req, res) => {
   try {
-    const { q = "" } = req.query;
-    const response = await axios.get(
-      `https://dummyjson.com/products/search?q=${q}`
-    );
-    const products = response.data;
+    const { id } = req.params;
+    const updateData = req.body;
+    const updatedProduct = await Product.findByIdAndUpdate(id, updateData, {
+      new: true,
+      runValidators: true,
+    });
 
-    res.json(products);
+    if (!updatedProduct) {
+      return res.status(404).json({ error: "Product not found" });
+    }
+
+    res.status(200).json(updatedProduct);
   } catch (error) {
-    console.error("Error:", error);
-    res
-      .status(500)
-      .json({ error: "Internal server error", details: error.message });
+    console.log("Error in updating product", error);
+    res.status(500).json({
+      error: "Failed to update product",
+      details: error.message,
+    });
   }
-});
-
-app.get("/api/products/external/category/:category", async (req, res) => {
-  try {
-    const { category } = req.params;
-    const response = await axios.get(
-      `https://dummyjson.com/products/category/${category}`
-    );
-    const products = response.data;
-
-    res.json(products);
-  } catch (error) {
-    console.error("Error:", error);
-    res
-      .status(500)
-      .json({ error: "Internal server error", details: error.message });
-  }
-});
-
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
 });
