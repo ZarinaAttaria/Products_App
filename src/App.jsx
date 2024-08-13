@@ -35,9 +35,7 @@ function App() {
     const sortType = sort ? `&sortBy=${sort}&order=${sortOrder}` : "";
 
     try {
-      const response = await axios.get(
-        `http://localhost:3000/api/products/external?limit=${productsPerPage}&skip=${skip}${sortType}`
-      );
+      const response = await axios.get(`http://localhost:3000/api/products`);
       const data = response.data;
       setProducts(data.products);
       setTotalProducts(data.total);
