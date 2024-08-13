@@ -13,7 +13,7 @@ app.get("/", (req, res) => {
 
 app.get("/api/products/external", async (req, res) => {
   const {
-    limit = 5,
+    limit = 4,
     skip = 0,
     sortBy = "price",
     order = "asc",
