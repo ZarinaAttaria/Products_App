@@ -29,12 +29,12 @@ The Products App is a web application that allows users to browse, filter, searc
 
 To run this app locally, follow these steps:
 
-1. Clone the repository:
+1. **Clone the repository**:
 
    ```bash
    git clone https://github.com/ZarinaAttaria/Products_App.git
    ```
 
-2. Execute the app:
+2. **Execute the app**:
    npm install,
    npm run dev
