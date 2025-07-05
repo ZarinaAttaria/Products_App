@@ -5,10 +5,10 @@ import { Badge } from "antd";
 
 function Navbar({ cart, handleSearch, handleCart, handleCategoryFilter }) {
   return (
-    <nav className="navbar navbar-expand-lg bg-body-tertiary">
+    <nav className="navbar navbar-expand-lg bg-body-tertiary fixed-top">
       <div className="container-fluid">
         <a className="navbar-brand" href="#">
-          ProductsApp
+          QuickCart
         </a>
         <button
           className="navbar-toggler"

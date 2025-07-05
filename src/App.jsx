@@ -36,7 +36,7 @@ function App() {
 
     try {
       const response = await axios.get(
-        `http://localhost:3000/api/products/external?limit=${productsPerPage}&skip=${skip}${sortType}`
+        `https://dummyjson.com/products?limit=${productsPerPage}&skip=${skip}${sortType}`
       );
       const data = response.data;
       setProducts(data.products);
@@ -51,7 +51,7 @@ function App() {
 
     try {
       const response = await axios.get(
-        `http://localhost:3000/api/products/external/search?q=${query}&limit=${productsPerPage}&skip=${
+        `https://dummyjson.com/products/search?q=${query}&limit=${productsPerPage}&skip=${
           (page - 1) * productsPerPage
         }${sortType}`
       );
@@ -69,7 +69,7 @@ function App() {
 
     try {
       const response = await axios.get(
-        `http://localhost:3000/api/products/external/category/${category}?limit=${productsPerPage}&skip=${skip}${sortType}`
+        `https://dummyjson.com/products/category/${category}?limit=${productsPerPage}&skip=${skip}${sortType}`
       );
       const data = response.data;
       setProducts(data.products);
