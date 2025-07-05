@@ -38,3 +38,4 @@ To run this app locally, follow these steps:
 2. **Execute the app**:
    npm install,
    npm run dev
+   s

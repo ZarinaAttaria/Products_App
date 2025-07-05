@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+// import axios from "axios";
 import _ from "lodash";
 import Navbar from "./Navbar.jsx";
 import ProductCard from "./ProductCard.jsx";
